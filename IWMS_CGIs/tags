@@ -1,0 +1,265 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+APPEND	cgic.c	652;"	d	file:
+BAPPEND	cgic.c	673;"	d	file:
+CC	Makefile	/^CC=gcc$/;"	m
+CGICDEBUGEND	cgic.c	17;"	d	file:
+CGICDEBUGEND	cgic.c	22;"	d	file:
+CGICDEBUGSTART	cgic.c	12;"	d	file:
+CGICDEBUGSTART	cgic.c	21;"	d	file:
+CGIC_VERSION	cgic.c	1874;"	d	file:
+CGI_C	cgic.h	7;"	d
+FLAGS	Makefile	/^FLAGS=-Wall -g$/;"	m
+LIBS	Makefile	/^LIBS=-lsqlite3 -lmath$/;"	m
+OBJS	Makefile	/^OBJS=test.cgi$/;"	m
+RAPPEND	cgic.c	659;"	d	file:
+TRYPUTC	cgic.c	2459;"	d	file:
+afterNextBoundary	cgic.c	/^cgiParseResultType afterNextBoundary(mpStreamPtr mpp, FILE *outf, char **outP,$/;"	f
+attr	cgic.c	/^        char *attr;$/;"	m	struct:cgiFormEntryStruct	file:
+buffer	cJSON.c	/^typedef struct {char *buffer; int length; int offset; } printbuffer;$/;"	m	struct:__anon7	file:
+cJSON	cJSON.h	/^typedef struct cJSON {$/;"	s
+cJSON	cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
+cJSON_AddBoolToObject	cJSON.h	137;"	d
+cJSON_AddFalseToObject	cJSON.h	136;"	d
+cJSON_AddItemReferenceToArray	cJSON.c	/^void	cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item)						{cJSON_AddItemToArray(array,create_reference(item));}$/;"	f
+cJSON_AddItemReferenceToObject	cJSON.c	/^void	cJSON_AddItemReferenceToObject(cJSON *object,const char *string,cJSON *item)	{cJSON_AddItemToObject(object,string,create_reference(item));}$/;"	f
+cJSON_AddItemToArray	cJSON.c	/^void   cJSON_AddItemToArray(cJSON *array, cJSON *item)						{cJSON *c=array->child;if (!item) return; if (!c) {array->child=item;} else {while (c && c->next) c=c->next; suffix_object(c,item);}}$/;"	f
+cJSON_AddItemToObject	cJSON.c	/^void   cJSON_AddItemToObject(cJSON *object,const char *string,cJSON *item)	{if (!item) return; if (item->string) cJSON_free(item->string);item->string=cJSON_strdup(string);cJSON_AddItemToArray(object,item);}$/;"	f
+cJSON_AddItemToObjectCS	cJSON.c	/^void   cJSON_AddItemToObjectCS(cJSON *object,const char *string,cJSON *item)	{if (!item) return; if (!(item->type&cJSON_StringIsConst) && item->string) cJSON_free(item->string);item->string=(char*)string;item->type|=cJSON_StringIsConst;cJSON_AddItemToArray(object,item);}$/;"	f
+cJSON_AddNullToObject	cJSON.h	134;"	d
+cJSON_AddNumberToObject	cJSON.h	138;"	d
+cJSON_AddStringToObject	cJSON.h	139;"	d
+cJSON_AddTrueToObject	cJSON.h	135;"	d
+cJSON_Array	cJSON.h	37;"	d
+cJSON_CreateArray	cJSON.c	/^cJSON *cJSON_CreateArray(void)					{cJSON *item=cJSON_New_Item();if(item)item->type=cJSON_Array;return item;}$/;"	f
+cJSON_CreateBool	cJSON.c	/^cJSON *cJSON_CreateBool(int b)					{cJSON *item=cJSON_New_Item();if(item)item->type=b?cJSON_True:cJSON_False;return item;}$/;"	f
+cJSON_CreateDoubleArray	cJSON.c	/^cJSON *cJSON_CreateDoubleArray(const double *numbers,int count)	{int i;cJSON *n=0,*p=0,*a=cJSON_CreateArray();for(i=0;a && i<count;i++){n=cJSON_CreateNumber(numbers[i]);if(!i)a->child=n;else suffix_object(p,n);p=n;}return a;}$/;"	f
+cJSON_CreateFalse	cJSON.c	/^cJSON *cJSON_CreateFalse(void)					{cJSON *item=cJSON_New_Item();if(item)item->type=cJSON_False;return item;}$/;"	f
+cJSON_CreateFloatArray	cJSON.c	/^cJSON *cJSON_CreateFloatArray(const float *numbers,int count)	{int i;cJSON *n=0,*p=0,*a=cJSON_CreateArray();for(i=0;a && i<count;i++){n=cJSON_CreateNumber(numbers[i]);if(!i)a->child=n;else suffix_object(p,n);p=n;}return a;}$/;"	f
+cJSON_CreateIntArray	cJSON.c	/^cJSON *cJSON_CreateIntArray(const int *numbers,int count)		{int i;cJSON *n=0,*p=0,*a=cJSON_CreateArray();for(i=0;a && i<count;i++){n=cJSON_CreateNumber(numbers[i]);if(!i)a->child=n;else suffix_object(p,n);p=n;}return a;}$/;"	f
+cJSON_CreateNull	cJSON.c	/^cJSON *cJSON_CreateNull(void)					{cJSON *item=cJSON_New_Item();if(item)item->type=cJSON_NULL;return item;}$/;"	f
+cJSON_CreateNumber	cJSON.c	/^cJSON *cJSON_CreateNumber(double num)			{cJSON *item=cJSON_New_Item();if(item){item->type=cJSON_Number;item->valuedouble=num;item->valueint=(int)num;}return item;}$/;"	f
+cJSON_CreateObject	cJSON.c	/^cJSON *cJSON_CreateObject(void)					{cJSON *item=cJSON_New_Item();if(item)item->type=cJSON_Object;return item;}$/;"	f
+cJSON_CreateString	cJSON.c	/^cJSON *cJSON_CreateString(const char *string)	{cJSON *item=cJSON_New_Item();if(item){item->type=cJSON_String;item->valuestring=cJSON_strdup(string);}return item;}$/;"	f
+cJSON_CreateStringArray	cJSON.c	/^cJSON *cJSON_CreateStringArray(const char **strings,int count)	{int i;cJSON *n=0,*p=0,*a=cJSON_CreateArray();for(i=0;a && i<count;i++){n=cJSON_CreateString(strings[i]);if(!i)a->child=n;else suffix_object(p,n);p=n;}return a;}$/;"	f
+cJSON_CreateTrue	cJSON.c	/^cJSON *cJSON_CreateTrue(void)					{cJSON *item=cJSON_New_Item();if(item)item->type=cJSON_True;return item;}$/;"	f
+cJSON_Delete	cJSON.c	/^void cJSON_Delete(cJSON *c)$/;"	f
+cJSON_DeleteItemFromArray	cJSON.c	/^void   cJSON_DeleteItemFromArray(cJSON *array,int which)			{cJSON_Delete(cJSON_DetachItemFromArray(array,which));}$/;"	f
+cJSON_DeleteItemFromObject	cJSON.c	/^void   cJSON_DeleteItemFromObject(cJSON *object,const char *string) {cJSON_Delete(cJSON_DetachItemFromObject(object,string));}$/;"	f
+cJSON_DetachItemFromArray	cJSON.c	/^cJSON *cJSON_DetachItemFromArray(cJSON *array,int which)			{cJSON *c=array->child;while (c && which>0) c=c->next,which--;if (!c) return 0;$/;"	f
+cJSON_DetachItemFromObject	cJSON.c	/^cJSON *cJSON_DetachItemFromObject(cJSON *object,const char *string) {int i=0;cJSON *c=object->child;while (c && cJSON_strcasecmp(c->string,string)) i++,c=c->next;if (c) return cJSON_DetachItemFromArray(object,i);return 0;}$/;"	f
+cJSON_Duplicate	cJSON.c	/^cJSON *cJSON_Duplicate(cJSON *item,int recurse)$/;"	f
+cJSON_False	cJSON.h	32;"	d
+cJSON_GetArrayItem	cJSON.c	/^cJSON *cJSON_GetArrayItem(cJSON *array,int item)				{cJSON *c=array->child;  while (c && item>0) item--,c=c->next; return c;}$/;"	f
+cJSON_GetArraySize	cJSON.c	/^int    cJSON_GetArraySize(cJSON *array)							{cJSON *c=array->child;int i=0;while(c)i++,c=c->next;return i;}$/;"	f
+cJSON_GetErrorPtr	cJSON.c	/^const char *cJSON_GetErrorPtr(void) {return ep;}$/;"	f
+cJSON_GetObjectItem	cJSON.c	/^cJSON *cJSON_GetObjectItem(cJSON *object,const char *string)	{cJSON *c=object->child; while (c && cJSON_strcasecmp(c->string,string)) c=c->next; return c;}$/;"	f
+cJSON_Hooks	cJSON.h	/^typedef struct cJSON_Hooks {$/;"	s
+cJSON_Hooks	cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
+cJSON_InitHooks	cJSON.c	/^void cJSON_InitHooks(cJSON_Hooks* hooks)$/;"	f
+cJSON_InsertItemInArray	cJSON.c	/^void   cJSON_InsertItemInArray(cJSON *array,int which,cJSON *newitem)		{cJSON *c=array->child;while (c && which>0) c=c->next,which--;if (!c) {cJSON_AddItemToArray(array,newitem);return;}$/;"	f
+cJSON_IsReference	cJSON.h	40;"	d
+cJSON_Minify	cJSON.c	/^void cJSON_Minify(char *json)$/;"	f
+cJSON_NULL	cJSON.h	34;"	d
+cJSON_New_Item	cJSON.c	/^static cJSON *cJSON_New_Item(void)$/;"	f	file:
+cJSON_Number	cJSON.h	35;"	d
+cJSON_Object	cJSON.h	38;"	d
+cJSON_Parse	cJSON.c	/^cJSON *cJSON_Parse(const char *value) {return cJSON_ParseWithOpts(value,0,0);}$/;"	f
+cJSON_ParseWithOpts	cJSON.c	/^cJSON *cJSON_ParseWithOpts(const char *value,const char **return_parse_end,int require_null_terminated)$/;"	f
+cJSON_Print	cJSON.c	/^char *cJSON_Print(cJSON *item)				{return print_value(item,0,1,0);}$/;"	f
+cJSON_PrintBuffered	cJSON.c	/^char *cJSON_PrintBuffered(cJSON *item,int prebuffer,int fmt)$/;"	f
+cJSON_PrintUnformatted	cJSON.c	/^char *cJSON_PrintUnformatted(cJSON *item)	{return print_value(item,0,0,0);}$/;"	f
+cJSON_ReplaceItemInArray	cJSON.c	/^void   cJSON_ReplaceItemInArray(cJSON *array,int which,cJSON *newitem)		{cJSON *c=array->child;while (c && which>0) c=c->next,which--;if (!c) return;$/;"	f
+cJSON_ReplaceItemInObject	cJSON.c	/^void   cJSON_ReplaceItemInObject(cJSON *object,const char *string,cJSON *newitem){int i=0;cJSON *c=object->child;while(c && cJSON_strcasecmp(c->string,string))i++,c=c->next;if(c){newitem->string=cJSON_strdup(string);cJSON_ReplaceItemInArray(object,i,newitem);}}$/;"	f
+cJSON_SetIntValue	cJSON.h	142;"	d
+cJSON_SetNumberValue	cJSON.h	143;"	d
+cJSON_String	cJSON.h	36;"	d
+cJSON_StringIsConst	cJSON.h	41;"	d
+cJSON_True	cJSON.h	33;"	d
+cJSON__h	cJSON.h	24;"	d
+cJSON_free	cJSON.c	/^static void (*cJSON_free)(void *ptr) = free;$/;"	v	file:
+cJSON_malloc	cJSON.c	/^static void *(*cJSON_malloc)(size_t sz) = malloc;$/;"	v	file:
+cJSON_strcasecmp	cJSON.c	/^static int cJSON_strcasecmp(const char *s1,const char *s2)$/;"	f	file:
+cJSON_strdup	cJSON.c	/^static char* cJSON_strdup(const char* str)$/;"	f	file:
+cgiAccept	cgic.c	/^char *cgiAccept;$/;"	v
+cgiAuthType	cgic.c	/^char *cgiAuthType;$/;"	v
+cgiContentLength	cgic.c	/^int cgiContentLength;$/;"	v
+cgiContentType	cgic.c	/^char *cgiContentType = cgiContentTypeData;$/;"	v
+cgiContentTypeData	cgic.c	/^char cgiContentTypeData[1024];$/;"	v
+cgiCookie	cgic.c	/^char *cgiCookie;$/;"	v
+cgiCookieInteger	cgic.c	/^cgiFormResultType cgiCookieInteger($/;"	f
+cgiCookieString	cgic.c	/^cgiFormResultType cgiCookieString($/;"	f
+cgiCookies	cgic.c	/^cgiFormResultType cgiCookies(char ***result) {$/;"	f
+cgiEnvironmentIO	cgic.h	/^	cgiEnvironmentIO,$/;"	e	enum:__anon6
+cgiEnvironmentMemory	cgic.h	/^	cgiEnvironmentMemory,$/;"	e	enum:__anon6
+cgiEnvironmentResultType	cgic.h	/^} cgiEnvironmentResultType;$/;"	t	typeref:enum:__anon6
+cgiEnvironmentSuccess	cgic.h	/^	cgiEnvironmentSuccess,$/;"	e	enum:__anon6
+cgiEnvironmentWrongVersion	cgic.h	/^	cgiEnvironmentWrongVersion$/;"	e	enum:__anon6
+cgiEscapeFirst	cgic.c	/^	cgiEscapeFirst,$/;"	e	enum:__anon3	file:
+cgiEscapeRest	cgic.c	/^	cgiEscapeRest,$/;"	e	enum:__anon3	file:
+cgiEscapeSecond	cgic.c	/^	cgiEscapeSecond$/;"	e	enum:__anon3	file:
+cgiEscapeState	cgic.c	/^} cgiEscapeState;$/;"	t	typeref:enum:__anon3	file:
+cgiFile	cgic.c	/^} cgiFile;$/;"	t	typeref:struct:cgiFileStruct	file:
+cgiFilePtr	cgic.h	/^typedef struct cgiFileStruct *cgiFilePtr;$/;"	t	typeref:struct:cgiFileStruct
+cgiFileStruct	cgic.c	/^typedef struct cgiFileStruct {$/;"	s	file:
+cgiFindPos	cgic.c	/^static cgiFormEntry *cgiFindPos = 0;$/;"	v	file:
+cgiFindTarget	cgic.c	/^static char *cgiFindTarget = 0;$/;"	v	file:
+cgiFirstNonspaceChar	cgic.c	/^static int cgiFirstNonspaceChar(char *s) {$/;"	f	file:
+cgiFormBadType	cgic.h	/^	cgiFormBadType,$/;"	e	enum:__anon5
+cgiFormCheckboxMultiple	cgic.c	/^extern cgiFormResultType cgiFormCheckboxMultiple($/;"	f
+cgiFormCheckboxSingle	cgic.c	/^cgiFormResultType cgiFormCheckboxSingle($/;"	f
+cgiFormConstrained	cgic.h	/^	cgiFormConstrained,$/;"	e	enum:__anon5
+cgiFormDouble	cgic.c	/^cgiFormResultType cgiFormDouble($/;"	f
+cgiFormDoubleBounded	cgic.c	/^cgiFormResultType cgiFormDoubleBounded($/;"	f
+cgiFormEOF	cgic.h	/^	cgiFormEOF$/;"	e	enum:__anon5
+cgiFormEmpty	cgic.h	/^	cgiFormEmpty,$/;"	e	enum:__anon5
+cgiFormEntries	cgic.c	/^cgiFormResultType cgiFormEntries(char ***result) {$/;"	f
+cgiFormEntry	cgic.c	/^} cgiFormEntry;$/;"	t	typeref:struct:cgiFormEntryStruct	file:
+cgiFormEntryFindFirst	cgic.c	/^static cgiFormEntry *cgiFormEntryFindFirst(char *name) {$/;"	f	file:
+cgiFormEntryFindNext	cgic.c	/^static cgiFormEntry *cgiFormEntryFindNext() {$/;"	f	file:
+cgiFormEntryFirst	cgic.c	/^static cgiFormEntry *cgiFormEntryFirst;$/;"	v	file:
+cgiFormEntryString	cgic.c	/^static cgiFormResultType cgiFormEntryString($/;"	f	file:
+cgiFormEntryStruct	cgic.c	/^typedef struct cgiFormEntryStruct {$/;"	s	file:
+cgiFormFileClose	cgic.c	/^cgiFormResultType cgiFormFileClose(cgiFilePtr cfp)$/;"	f
+cgiFormFileContentType	cgic.c	/^cgiFormResultType cgiFormFileContentType($/;"	f
+cgiFormFileName	cgic.c	/^cgiFormResultType cgiFormFileName($/;"	f
+cgiFormFileOpen	cgic.c	/^cgiFormResultType cgiFormFileOpen($/;"	f
+cgiFormFileRead	cgic.c	/^cgiFormResultType cgiFormFileRead($/;"	f
+cgiFormFileSize	cgic.c	/^cgiFormResultType cgiFormFileSize($/;"	f
+cgiFormIO	cgic.h	/^	cgiFormIO,$/;"	e	enum:__anon5
+cgiFormInteger	cgic.c	/^cgiFormResultType cgiFormInteger($/;"	f
+cgiFormIntegerBounded	cgic.c	/^cgiFormResultType cgiFormIntegerBounded($/;"	f
+cgiFormMemory	cgic.h	/^	cgiFormMemory,$/;"	e	enum:__anon5
+cgiFormNoContentType	cgic.h	/^	cgiFormNoContentType,$/;"	e	enum:__anon5
+cgiFormNoFileName	cgic.h	/^	cgiFormNoFileName,$/;"	e	enum:__anon5
+cgiFormNoSuchChoice	cgic.h	/^	cgiFormNoSuchChoice,$/;"	e	enum:__anon5
+cgiFormNotAFile	cgic.h	/^	cgiFormNotAFile,$/;"	e	enum:__anon5
+cgiFormNotFound	cgic.h	/^	cgiFormNotFound,$/;"	e	enum:__anon5
+cgiFormOpenFailed	cgic.h	/^	cgiFormOpenFailed,$/;"	e	enum:__anon5
+cgiFormRadio	cgic.c	/^cgiFormResultType cgiFormRadio($/;"	f
+cgiFormResultType	cgic.h	/^} cgiFormResultType;$/;"	t	typeref:enum:__anon5
+cgiFormSelectMultiple	cgic.c	/^cgiFormResultType cgiFormSelectMultiple($/;"	f
+cgiFormSelectSingle	cgic.c	/^cgiFormResultType cgiFormSelectSingle($/;"	f
+cgiFormString	cgic.c	/^cgiFormResultType cgiFormString($/;"	f
+cgiFormStringMultiple	cgic.c	/^cgiFormResultType cgiFormStringMultiple($/;"	f
+cgiFormStringNoNewlines	cgic.c	/^cgiFormResultType cgiFormStringNoNewlines($/;"	f
+cgiFormStringSpaceNeeded	cgic.c	/^cgiFormResultType cgiFormStringSpaceNeeded($/;"	f
+cgiFormSubmitClicked	cgic.h	131;"	d
+cgiFormSuccess	cgic.h	/^	cgiFormSuccess,$/;"	e	enum:__anon5
+cgiFormTruncated	cgic.h	/^	cgiFormTruncated,$/;"	e	enum:__anon5
+cgiFreeResources	cgic.c	/^static void cgiFreeResources() {$/;"	f	file:
+cgiGatewayInterface	cgic.c	/^char *cgiGatewayInterface;$/;"	v
+cgiGetenv	cgic.c	/^static void cgiGetenv(char **s, char *var){$/;"	f	file:
+cgiHeaderContentType	cgic.c	/^void cgiHeaderContentType(char *mimeType) {$/;"	f
+cgiHeaderCookieSetInteger	cgic.c	/^void cgiHeaderCookieSetInteger(char *name, int value, int secondsToLive,$/;"	f
+cgiHeaderCookieSetString	cgic.c	/^void cgiHeaderCookieSetString(char *name, char *value, int secondsToLive,$/;"	f
+cgiHeaderLocation	cgic.c	/^void cgiHeaderLocation(char *redirectUrl) {$/;"	f
+cgiHeaderStatus	cgic.c	/^void cgiHeaderStatus(int status, char *statusMessage) {$/;"	f
+cgiHexValue	cgic.c	/^static int cgiHexValue[256];$/;"	v	file:
+cgiHtmlEscape	cgic.c	/^cgiFormResultType cgiHtmlEscape(char *s)$/;"	f
+cgiHtmlEscapeData	cgic.c	/^cgiFormResultType cgiHtmlEscapeData(char *data, int len)$/;"	f
+cgiIn	cgic.c	/^FILE *cgiIn;$/;"	v
+cgiMain	test.c	/^int cgiMain()$/;"	f
+cgiMultipartBoundary	cgic.c	/^char *cgiMultipartBoundary;$/;"	v
+cgiOut	cgic.c	/^FILE *cgiOut;$/;"	v
+cgiParseFormInput	cgic.c	/^static cgiParseResultType cgiParseFormInput(char *data, int length) {$/;"	f	file:
+cgiParseGetFormInput	cgic.c	/^static cgiParseResultType cgiParseGetFormInput() {$/;"	f	file:
+cgiParseIO	cgic.c	/^	cgiParseIO$/;"	e	enum:__anon1	file:
+cgiParseMemory	cgic.c	/^	cgiParseMemory,$/;"	e	enum:__anon1	file:
+cgiParsePostFormInput	cgic.c	/^static cgiParseResultType cgiParsePostFormInput() {$/;"	f	file:
+cgiParsePostMultipartInput	cgic.c	/^static cgiParseResultType cgiParsePostMultipartInput() {$/;"	f	file:
+cgiParseResultType	cgic.c	/^} cgiParseResultType;$/;"	t	typeref:enum:__anon1	file:
+cgiParseSuccess	cgic.c	/^	cgiParseSuccess,$/;"	e	enum:__anon1	file:
+cgiPathInfo	cgic.c	/^char *cgiPathInfo;$/;"	v
+cgiPathTranslated	cgic.c	/^char *cgiPathTranslated;$/;"	v
+cgiQueryString	cgic.c	/^char *cgiQueryString;$/;"	v
+cgiReadEnvironment	cgic.c	/^cgiEnvironmentResultType cgiReadEnvironment(char *filename) {$/;"	f
+cgiReadInt	cgic.c	/^static int cgiReadInt(FILE *out, int *i) {$/;"	f	file:
+cgiReadString	cgic.c	/^static int cgiReadString(FILE *in, char **s) {$/;"	f	file:
+cgiReferer	cgic.h	48;"	d
+cgiReferrer	cgic.c	/^char *cgiReferrer;$/;"	v
+cgiRemoteAddr	cgic.c	/^char *cgiRemoteAddr;$/;"	v
+cgiRemoteHost	cgic.c	/^char *cgiRemoteHost;$/;"	v
+cgiRemoteIdent	cgic.c	/^char *cgiRemoteIdent;$/;"	v
+cgiRemoteUser	cgic.c	/^char *cgiRemoteUser;$/;"	v
+cgiRequestMethod	cgic.c	/^char *cgiRequestMethod;$/;"	v
+cgiRestored	cgic.c	/^static int cgiRestored = 0;$/;"	v	file:
+cgiScriptName	cgic.c	/^char *cgiScriptName;$/;"	v
+cgiServerName	cgic.c	/^char *cgiServerName;$/;"	v
+cgiServerPort	cgic.c	/^char *cgiServerPort;$/;"	v
+cgiServerProtocol	cgic.c	/^char *cgiServerProtocol;$/;"	v
+cgiServerSoftware	cgic.c	/^char *cgiServerSoftware;$/;"	v
+cgiSetupConstants	cgic.c	/^static void cgiSetupConstants() {$/;"	f	file:
+cgiStrBeginsNc	cgic.c	/^static int cgiStrBeginsNc(char *s1, char *s2) {$/;"	f	file:
+cgiStrEq	cgic.c	44;"	d	file:
+cgiStrEqNc	cgic.c	/^static int cgiStrEqNc(char *s1, char *s2) {$/;"	f	file:
+cgiStringArrayFree	cgic.c	/^void cgiStringArrayFree(char **stringArray) {$/;"	f
+cgiUnescapeChars	cgic.c	/^cgiUnescapeResultType cgiUnescapeChars(char **sp, char *cp, int len) {$/;"	f
+cgiUnescapeMemory	cgic.c	/^	cgiUnescapeMemory$/;"	e	enum:__anon4	file:
+cgiUnescapeResultType	cgic.c	/^} cgiUnescapeResultType;$/;"	t	typeref:enum:__anon4	file:
+cgiUnescapeSuccess	cgic.c	/^	cgiUnescapeSuccess,$/;"	e	enum:__anon4	file:
+cgiUserAgent	cgic.c	/^char *cgiUserAgent;$/;"	v
+cgiValueEscape	cgic.c	/^cgiFormResultType cgiValueEscape(char *s)$/;"	f
+cgiValueEscapeData	cgic.c	/^cgiFormResultType cgiValueEscapeData(char *data, int len)$/;"	f
+cgiWriteEnvironment	cgic.c	/^cgiEnvironmentResultType cgiWriteEnvironment(char *filename) {$/;"	f
+cgiWriteInt	cgic.c	/^static int cgiWriteInt(FILE *out, int i) {$/;"	f	file:
+cgiWriteString	cgic.c	/^static int cgiWriteString(FILE *out, char *s) {$/;"	f	file:
+cgicTempDir	cgic.c	9;"	d	file:
+child	cJSON.h	/^	struct cJSON *child;		\/* An array or object item will have a child pointer pointing to a chain of the items in the array\/object. *\/$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
+contentType	cgic.c	/^	char *contentType;$/;"	m	struct:cgiFormEntryStruct	file:
+create_reference	cJSON.c	/^static cJSON *create_reference(cJSON *item) {cJSON *ref=cJSON_New_Item();if (!ref) return 0;memcpy(ref,item,sizeof(cJSON));ref->string=0;ref->type|=cJSON_IsReference;ref->next=ref->prev=0;return ref;}$/;"	f	file:
+days	cgic.c	/^char *days[] = {$/;"	v
+decomposeValue	cgic.c	/^static void decomposeValue(char *value,$/;"	f	file:
+ensure	cJSON.c	/^static char* ensure(printbuffer *p,int needed)$/;"	f	file:
+ep	cJSON.c	/^static const char *ep;$/;"	v	file:
+fileName	cgic.c	/^	char *fileName;	$/;"	m	struct:cgiFormEntryStruct	file:
+firstByteMark	cJSON.c	/^static const unsigned char firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC };$/;"	v	file:
+free_fn	cJSON.h	/^      void (*free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks
+getTempFileName	cgic.c	/^static cgiParseResultType getTempFileName(char *tfileName)$/;"	f	file:
+in	cgic.c	/^	FILE *in;$/;"	m	struct:cgiFileStruct	file:
+length	cJSON.c	/^typedef struct {char *buffer; int length; int offset; } printbuffer;$/;"	m	struct:__anon7	file:
+main	cgic.c	/^int main(int argc, char *argv[]) {$/;"	f
+malloc_fn	cJSON.h	/^      void *(*malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks
+months	cgic.c	/^char *months[] = {$/;"	v
+mpPutBack	cgic.c	/^void mpPutBack(mpStreamPtr mpp, char *data, int len)$/;"	f
+mpRead	cgic.c	/^int mpRead(mpStreamPtr mpp, char *buffer, int len)$/;"	f
+mpStream	cgic.c	/^} mpStream, *mpStreamPtr;$/;"	t	typeref:struct:__anon2	file:
+mpStreamPtr	cgic.c	/^} mpStream, *mpStreamPtr;$/;"	t	typeref:struct:__anon2	file:
+next	cJSON.h	/^	struct cJSON *next,*prev;	\/* next\/prev allow you to walk array\/object chains. Alternatively, use GetArraySize\/GetArrayItem\/GetObjectItem *\/$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
+next	cgic.c	/^        struct cgiFormEntryStruct *next;$/;"	m	struct:cgiFormEntryStruct	typeref:struct:cgiFormEntryStruct::cgiFormEntryStruct	file:
+offset	cJSON.c	/^typedef struct {char *buffer; int length; int offset; } printbuffer;$/;"	m	struct:__anon7	file:
+offset	cgic.c	/^	int offset;$/;"	m	struct:__anon2	file:
+parse_array	cJSON.c	/^static const char *parse_array(cJSON *item,const char *value)$/;"	f	file:
+parse_hex4	cJSON.c	/^static unsigned parse_hex4(const char *str)$/;"	f	file:
+parse_number	cJSON.c	/^static const char *parse_number(cJSON *item,const char *num)$/;"	f	file:
+parse_object	cJSON.c	/^static const char *parse_object(cJSON *item,const char *value)$/;"	f	file:
+parse_string	cJSON.c	/^static const char *parse_string(cJSON *item,const char *str)$/;"	f	file:
+parse_value	cJSON.c	/^static const char *parse_value(cJSON *item,const char *value)$/;"	f	file:
+pow2gt	cJSON.c	/^static int pow2gt (int x)	{	--x;	x|=x>>1;	x|=x>>2;	x|=x>>4;	x|=x>>8;	x|=x>>16;	return x+1;	}$/;"	f	file:
+prev	cJSON.h	/^	struct cJSON *next,*prev;	\/* next\/prev allow you to walk array\/object chains. Alternatively, use GetArraySize\/GetArrayItem\/GetObjectItem *\/$/;"	m	struct:cJSON	typeref:struct:cJSON::
+print_array	cJSON.c	/^static char *print_array(cJSON *item,int depth,int fmt,printbuffer *p)$/;"	f	file:
+print_number	cJSON.c	/^static char *print_number(cJSON *item,printbuffer *p)$/;"	f	file:
+print_object	cJSON.c	/^static char *print_object(cJSON *item,int depth,int fmt,printbuffer *p)$/;"	f	file:
+print_string	cJSON.c	/^static char *print_string(cJSON *item,printbuffer *p)	{return print_string_ptr(item->valuestring,p);}$/;"	f	file:
+print_string_ptr	cJSON.c	/^static char *print_string_ptr(const char *str,printbuffer *p)$/;"	f	file:
+print_value	cJSON.c	/^static char *print_value(cJSON *item,int depth,int fmt,printbuffer *p)$/;"	f	file:
+printbuffer	cJSON.c	/^typedef struct {char *buffer; int length; int offset; } printbuffer;$/;"	t	typeref:struct:__anon7	file:
+putback	cgic.c	/^	char putback[1024];	$/;"	m	struct:__anon2	file:
+readHeaderLine	cgic.c	/^static int readHeaderLine($/;"	f	file:
+readPos	cgic.c	/^	int readPos;$/;"	m	struct:__anon2	file:
+skip	cJSON.c	/^static const char *skip(const char *in) {while (in && *in && (unsigned char)*in<=32) in++; return in;}$/;"	f	file:
+string	cJSON.h	/^	char *string;				\/* The item's name string, if this item is the child of, or is in the list of subitems of an object. *\/$/;"	m	struct:cJSON
+suffix_object	cJSON.c	/^static void suffix_object(cJSON *prev,cJSON *item) {prev->next=item;item->prev=prev;}$/;"	f	file:
+tfileName	cgic.c	/^	char *tfileName;$/;"	m	struct:cgiFormEntryStruct	file:
+type	cJSON.h	/^	int type;					\/* The type of the item, as above. *\/$/;"	m	struct:cJSON
+update	cJSON.c	/^static int update(printbuffer *p)$/;"	f	file:
+value	cgic.c	/^	char *value;$/;"	m	struct:cgiFormEntryStruct	file:
+valueLength	cgic.c	/^	int valueLength;$/;"	m	struct:cgiFormEntryStruct	file:
+valuedouble	cJSON.h	/^	double valuedouble;			\/* The item's number, if type==cJSON_Number *\/$/;"	m	struct:cJSON
+valueint	cJSON.h	/^	int valueint;				\/* The item's number, if type==cJSON_Number *\/$/;"	m	struct:cJSON
+valuestring	cJSON.h	/^	char *valuestring;			\/* The item's string, if type==cJSON_String *\/$/;"	m	struct:cJSON
+writePos	cgic.c	/^	int writePos;$/;"	m	struct:__anon2	file:
