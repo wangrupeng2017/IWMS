@@ -8,6 +8,7 @@
  ************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sqlite3.h>
 
 #include "store.h"
@@ -107,6 +108,9 @@ int createTables(void)
 //  添加默认数据(默认参数配置(温度,湿度,光照), 默认设备状态(蜂鸣器,照明灯,风扇))
 int addDefaultData(void)
 {
+/**							 
+INSERT INTO param_config(type, min, max, alarm, automation, status) VALUES('%d', '%f', '%f', '%d', '%d', '%d');
+**/
 	ParamConfigModel param_config[3] = {
 		[0] = { 
 			.type       = TypeTemperature,
@@ -133,6 +137,9 @@ int addDefaultData(void)
 			.status     = 0
 		},
 	};
+/**
+INSERT INTO device_status(name, type, warehouse, status, mode) VALUES('%f', '%d', '%d', '%d', '%d');
+**/
 	DeviceStatusModel device_status[3] = {
 		[0] = {
 			.name      = "蜂鸣器",
@@ -589,3 +596,4 @@ void formatStatisticsCall(char **row, void *outdata)
     info->max_illuminance      = atof(row[11]);
 	strcpy(info->date,                row[2]);
 }   
+

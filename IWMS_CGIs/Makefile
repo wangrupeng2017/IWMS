@@ -8,14 +8,17 @@ OBJS  += update_temperature_config.cgi update_humidity_config.cgi update_illumin
 OBJS  += realtime_trend_data.cgi realtime_statistics_data.cgi
 OBJS  += history_trend_data.cgi history_statistics_data.cgi
 OBJS  += update_device_config.cgi
+
 #LIBS=-L ./lib -lsqlite3
-LIBS=-lsqlite3 -lm
+LIBS     := -lsqlite3 -lm
+Includes := -I ../IWMS_SQLs
+Others   := cgic.c cJSON.c ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c
 
 all:$(OBJS)
 
 
 $(OBJS):%.cgi:%.c
-	$(CC) $(FLAGS) $< cgic.c cJSON.c -o $@ $(LIBS)
+	$(CC) $(FLAGS) $< $(Others) -o $@ $(LIBS) $(Includes)
 	cp $@ ~/IWMS/BOA/www/cgi-bin/
 
 clean:

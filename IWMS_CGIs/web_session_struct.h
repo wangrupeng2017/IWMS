@@ -10,9 +10,7 @@
 #ifndef __WEB_SESSION_STRUCT_H__
 #define __WEB_SESSION_STRUCT_H__
 
-typedef unsigned char uchar;
-typedef unsigned int  uint;
-typedef unsigned long ulong;
+#include "common_base.h"
 
 // 错误状态码
 typedef enum ErrorStatusCode {
@@ -20,54 +18,57 @@ typedef enum ErrorStatusCode {
 	ErrorRequestMethod = -1,
 	ErrorReadContent   = -2,
 	ErrorJsonParse     = -3,
+	ErrorInitSQL       = -4,
+	ErrorQuerySQL      = -5,
+	ErrorModifySQL     = -6,
 } ErrorStatusCode;
 
 // 仓库id请求结构体
 typedef struct WarehouseId {
-	uint warehouse_id;  //仓库id
+	uint warehouse_id;        //仓库id
 } WarehouseId;
 // 仓库id历史请求结构体
 typedef struct WarehouseHistory {
-	uint warehouse_id;  //仓库id
-	char date[20];      //日期
+	uint warehouse_id;        //仓库id
+	char date[20];            //日期
 } WarehouseHistory;
 // 仓库 蜂鸣器/LED/风扇 配置结构体
 typedef struct WarehouseDevice {
-	uint  warehouse_id;	//仓库id
-	int  buzzer;   //蜂鸣器状态 (0:关, 1:开)
-	int  light;	   //照明灯状态 (0:关, 1:开)
-	int  fan;	   //风扇状态 (0:关，1:1档，2:2档，3:3档)
+	uint  warehouse_id;	      //仓库id
+	int  buzzer;              //蜂鸣器状态 (0:关, 1:开)
+	int  light;	              //照明灯状态 (0:关, 1:开)
+	int  fan;	              //风扇状态 (0:关，1:1档，2:2档，3:3档)
 } WarehouseDevice;
 // 仓库 温度/湿度/光度 配置结构体
 typedef struct WarehouseConfig {
-	uint  warehouse_id;	//仓库id
-	float min;          //最小值
-	float max;          //最大值
-	int   alarm;        //监控报警
-	int   automation;   //自动控制
+	uint  warehouse_id;	      //仓库id
+	float min;                //最小值
+	float max;                //最大值
+	int   alarm;              //监控报警
+	int   automation;         //自动控制
 } WarehouseConfig;
 
 // 实时属性配置结构体
 typedef struct WebRealtimeParam {
-	float value;        //实时值
-	float min;          //最小值
-	float max;          //最大值
-	int   alarm;        //监控报警
-	int   automation;   //自动控制
-	int   status;       //异常状态
+	float value;              //实时值
+	float min;                //最小值
+	float max;                //最大值
+	int   alarm;              //监控报警
+	int   automation;         //自动控制
+	int   status;             //异常状态
 } WebRealtimeParam;
 // 实时器件状态结构体
 typedef struct WebDeviceStatus {
-	int  buzzer;   //蜂鸣器状态 (0:关, 1:开)
-	int  light;	   //照明灯状态 (0:关, 1:开)
-	int  fan;	   //风扇状态 (0:关，1:1档，2:2档，3:3档)
+	int  buzzer;              //蜂鸣器状态 (0:关, 1:开)
+	int  light;	              //照明灯状态 (0:关, 1:开)
+	int  fan;	              //风扇状态 (0:关，1:1档，2:2档，3:3档)
 } WebDeviceStatus;
 // 实时走势数据结构体
 typedef struct WebRealtimeTrend {
-	char  time[20];     //时间
-	float temperature;  //温度
-	float humidity;     //湿度
-	float illuminance;  //照明
+	char  time[20];           //时间
+	float temperature;        //温度
+	float humidity;           //湿度
+	float illuminance;        //照明
 } WebRealtimeTrend;
 // 异常信息统计结构体
 typedef struct WebAbnormalStatistics {

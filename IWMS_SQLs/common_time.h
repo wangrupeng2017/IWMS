@@ -9,6 +9,7 @@
 #ifndef __COMMON_TIME_H__
 #define __COMMON_TIME_H__
 
+#define _XOPEN_SOURCE 
 #include <stdio.h>
 #include <time.h>
 #include "common_base.h"

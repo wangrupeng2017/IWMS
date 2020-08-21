@@ -7,103 +7,179 @@
  * Modification: 2020-08-20
  ************************************************/
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "web_session_struct.h"
+
 #include "cgic.h"
 #include "cJSON.h"
+#include "web_session_struct.h"
+#include "store.h"
+#include "common_time.h"
 
-int getParameter(void **out, int *outlen);
-int sendResult(void *data, int datasize);
+//  接收参数
+int receiveParameter(void **out, int *outlen);
+//  业务处理
+int businessHandler(void *req, int reqlen, void **out, int *outlen);
+//  响应结果
+int sendResult(void *res, int reslen);
 
 int cgiMain()
 {
-	// 接收请求参数
-	WarehouseHistory *req = NULL;
-	int reqlen      = 0;
-	int ret = getParameter((void **)&req, &reqlen);
-	if (ret != Success)
-		goto ErrorLabel1;
+	void *req  = NULL;
+	int reqlen = 0;
+	//  接收参数
+	int ret = receiveParameter(&req, &reqlen);
+	if (ret != Success) goto ErrorLabel1;
 
-	//********************
-	// 根据id+日期查询数据
-	//********************
+	void *res  = NULL;
+	int reslen = 0;
+	//  业务处理
+	ret = businessHandler(req, reqlen, &res, &reslen);
+	if (ret != Success) goto ErrorLabel2;
 
-	// 返回结果
-	WebRealtimeTrend res[3] = {
-		[0] = {
-			.time         = "18:29",
-			.temperature  = 10.0,
-			.temperature  = 40.0,
-			.illuminance  = 100,
-		},
-		[1] = {
-			.time         = "18:30",
-			.temperature  = 10.0,
-			.temperature  = 40.0,
-			.illuminance  = 100,
-		},
-		[2] = {
-			.time         = "18:31",
-			.temperature  = 10.0,
-			.temperature  = 40.0,
-			.illuminance  = 100,
-		}
-	};
-	sendResult(res, sizeof(res));
+	//  响应结果
+	ret = sendResult(res, reslen);
+	if (ret != Success) goto ErrorLabel3;
+
+	free(req);
+	free(res);
 	return 0;
+ErrorLabel3:
+ErrorLabel2:
+	free(req);
 ErrorLabel1:
 	sendResult(NULL, 0);
-	return 0;	
+	return 0;
 }
 
-/*
+/***************************************
  * function:    获取请求参数
- * @param [out] out: 格式化后的参数
- * @param [out] outlen: 格式化后的参数
+ * @param [out] out 请求参数
+ * @param [out] outlen 参数大小
  * @return      0:接受成功，!0:接受错误
  */
-int getParameter(void **out, int *outlen)
+int receiveParameter(void **out, int *outlen)
 {
+	//  请求方式检查
 	if (strcmp(cgiRequestMethod, "POST") != 0)
 		return ErrorRequestMethod;
 	
-	char *buff = malloc(cgiContentLength+1);
+	int ret = 0;
+	//  请求参数读取 (未处理,字符串格式)
+	char *buff = calloc(cgiContentLength+1, 1);
 	if (fgets(buff, cgiContentLength+1, cgiIn) == NULL)
-		return ErrorReadContent; 
-
-	// +++++++++++++
-	// JSON解析
-	// +++++++++++++
-
-	*out = (char **)buff;	
-	return Success;
-}
-
-/*
- * function:    响应结果
- * @param [ in] data: 返回的结果
- * @param [ in] datasize: 返回的结果大小
- * @return      0:响应成功，!0:响应错误
- */
-int sendResult(void *data, int datasize)
-{
-	WebRealtimeTrend *res = data;
-	cJSON *json = cJSON_CreateArray();
-
-	int i = 0;
-	for (i=0; i<(datasize/sizeof(WebRealtimeTrend)); i++)
 	{
-		cJSON *temp = cJSON_CreateObject();
-		cJSON_AddItemToObject(temp, "time", cJSON_CreateString((res+i)->time));
-		cJSON_AddItemToObject(temp, "temperature", cJSON_CreateNumber((res+i)->temperature));
-		cJSON_AddItemToObject(temp, "humidity", cJSON_CreateNumber((res+i)->humidity));
-		cJSON_AddItemToObject(temp, "illuminance", cJSON_CreateNumber((res+i)->illuminance));
-		cJSON_AddItemToArray(json, temp);
+		ret = ErrorReadContent;
+		goto ERROR_LABEL1;
 	}
 
+	//  参数解析
+	cJSON *json = cJSON_Parse(buff);
+	if (NULL == json)  { ret=ErrorJsonParse; goto ERROR_LABEL1; }
+	WarehouseHistory *req = calloc(sizeof(WarehouseHistory), 1);
+	req->warehouse_id = cJSON_GetObjectItem(json, "warehouse_id")->valueint;
+	strcpy(req->date,   cJSON_GetObjectItem(json, "date")->valuestring);
+
+	//  传出参数值
+	*out = req;	
+	*outlen = sizeof(WarehouseHistory);
+	ret = Success;
+
+	//  释放过度内存
+	cJSON_Delete(json);
+ERROR_LABEL1:
+	free(buff);
+	return ret;
+}
+/***************************************
+ * function:    业务处理方法
+ * @param [ in] req 请求参数
+ * @param [ in] reqlen 参数大小
+ * @param [out] out 响应数据
+ * @param [out] outlen 响应数据大小
+ * @return      0:接受成功，!0:接受错误
+ */
+int businessHandler(void *req, int reqlen, void **out, int *outlen)
+{
+	sqlite3 *db_instance = NULL;
+	//  创建数据库实例
+	int ret = initSQL(&db_instance);
+	if (ret != 0)  { ret=ErrorInitSQL;  goto ERROR_LABEL1; }
+
+	//  历史日期
+	char *history_date = ((WarehouseHistory*)req)->date;
+
+	//  查询一整天60条温度记录
+	CommonValueModel *temperatures = calloc(sizeof(CommonValueModel), 60);
+	int rows = querySomedayTemperature(history_date, 60, temperatures);
+	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL2; }
+	//  查询一整天60条湿度度记录
+	CommonValueModel *humiditys = calloc(sizeof(CommonValueModel), 60);
+	rows = querySomedayHumidity(history_date, 60, humiditys);
+	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL3; }
+	//  查询一整天60条光照记录
+	CommonValueModel *illuminations = calloc(sizeof(CommonValueModel), 60);
+	rows = querySomedayIllumination(history_date, 60, illuminations);
+	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL4; }
+
+	//  格式化响应数据
+	WebRealtimeTrend *res = calloc(sizeof(WebRealtimeTrend), 60);
+	int i = 0;
+	for (i=0; i<60; i++)
+	{
+		strcpy(res[i].time, temperatures[i].time);
+		res[i].temperature = temperatures[i].value;
+		res[i].humidity    = humiditys[i].value;
+		res[i].illuminance = illuminations[i].value;
+	}
+
+	//  传出响应数据
+	*out    = res;
+	*outlen = sizeof(WebRealtimeTrend)*60;
+	ret     = Success;
+
+ERROR_LABEL4:
+	free(illuminations);
+ERROR_LABEL3:
+	free(humiditys);
+ERROR_LABEL2:
+	free(temperatures);
+ERROR_LABEL1:
+    closeSQL();
+	return ret;
+}
+/***************************************
+ * function:    响应结果
+ * @param [ in] res 响应数据
+ * @param [ in] reslen 响应数据大小
+ * @return      0:响应成功，!0:响应错误
+ */
+int sendResult(void *res, int reslen)
+{
+	cJSON *json = NULL;
+	if (res == NULL)
+	{
+		json = cJSON_CreateNull();
+	}
+	else
+	{
+		WebRealtimeTrend *datas = res;
+		json = cJSON_CreateArray();
+		int i = 0;
+		for (i=0; i<(reslen/sizeof(WebRealtimeTrend)); i++)
+		{
+			cJSON *item = cJSON_CreateObject();
+			cJSON_AddItemToObject(item, "time",        cJSON_CreateString((datas+i)->time));
+			cJSON_AddItemToObject(item, "temperature", cJSON_CreateNumber((datas+i)->temperature));
+			cJSON_AddItemToObject(item, "humidity",    cJSON_CreateNumber((datas+i)->humidity));
+			cJSON_AddItemToObject(item, "illuminance", cJSON_CreateNumber((datas+i)->illuminance));
+			cJSON_AddItemToArray(json, item);
+		}
+	}
+	
 	char *json_str = cJSON_Print(json);
 	cgiHeaderContentType("application/json");
 	fputs(json_str, cgiOut);

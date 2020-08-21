@@ -17,12 +17,12 @@
 
 
 #define DB_PATH  "./IWMS.db"
-#define TABLE_PARAM_CONFIG  "CREATE TABLE IF NOT EXISTS param_config (id INT PRIMARY KEY AUTOINCREMENT,  type INT NOT NULL,  min REAL NOT NULL,  max REAL NOT NULL,  alarm INT NOT NULL,  automation INT NOT NULL,  status INT NOT NULL);"
-#define TABLE_TEMPERATURE   "CREATE TABLE IF NOT EXISTS temperature  (id INT PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
-#define TABLE_HUMIDITY      "CREATE TABLE IF NOT EXISTS humidity     (id INT PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
-#define TABLE_ILLUMINATION  "CREATE TABLE IF NOT EXISTS illumination (id INT PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
-#define TABLE_DEVICE_STATUS "CREATE TABLE IF NOT EXISTS device_status(id INT PRIMARY KEY AUTOINCREMENT,  name TEXT NOT NULL,  type INT NOT NULL,  warehouse INT NOT NULL,  status INT NOT NULL,  mode INT NOT NULL);"
-#define TABLE_STATISTICS    "CREATE TABLE IF NOT EXISTS statistics   (id INT PRIMARY KEY AUTOINCREMENT,  warehouse INT NOT NULL,  date TEXT NOT NULL,  abnormal_temperature INT NOT NULL default 0,  min_temperature REAL NOT NULL default 0,  max_temperature REAL NOT NULL default 0,  abnormal_humidity INT NOT NULL default 0,  min_humidity REAL NOT NULL default 0,  max_humidity REAL NOT NULL default 0,  abnormal_illuminance INT NOT NULL default 0,  min_illuminance REAL NOT NULL default 0,  max_illuminance REAL NOT NULL default 0);"
+#define TABLE_PARAM_CONFIG  "CREATE TABLE IF NOT EXISTS param_config (id INTEGER PRIMARY KEY AUTOINCREMENT,  type INT NOT NULL,  min REAL NOT NULL,  max REAL NOT NULL,  alarm INT NOT NULL,  automation INT NOT NULL,  status INT NOT NULL);"
+#define TABLE_TEMPERATURE   "CREATE TABLE IF NOT EXISTS temperature  (id INTEGER PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
+#define TABLE_HUMIDITY      "CREATE TABLE IF NOT EXISTS humidity     (id INTEGER PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
+#define TABLE_ILLUMINATION  "CREATE TABLE IF NOT EXISTS illumination (id INTEGER PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
+#define TABLE_DEVICE_STATUS "CREATE TABLE IF NOT EXISTS device_status(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT NOT NULL,  type INT NOT NULL,  warehouse INT NOT NULL,  status INT NOT NULL,  mode INT NOT NULL);"
+#define TABLE_STATISTICS    "CREATE TABLE IF NOT EXISTS statistics   (id INTEGER PRIMARY KEY AUTOINCREMENT,  warehouse INT NOT NULL,  date TEXT NOT NULL,  abnormal_temperature INT NOT NULL default 0,  min_temperature REAL NOT NULL default 0,  max_temperature REAL NOT NULL default 0,  abnormal_humidity INT NOT NULL default 0,  min_humidity REAL NOT NULL default 0,  max_humidity REAL NOT NULL default 0,  abnormal_illuminance INT NOT NULL default 0,  min_illuminance REAL NOT NULL default 0,  max_illuminance REAL NOT NULL default 0);"
 
 
 //************************************************
@@ -54,7 +54,7 @@ int modifyParamConfig(ParamConfigModel *model);
 int addParamConfig(ParamConfigModel *model);
 
 //  读取 温度数据 最近一条
-int queryRecentlyTemperature(time_t time, CommonValueModel *out)
+int queryRecentlyTemperature(time_t time, CommonValueModel *out);
 //  读取 温度数据 某一天
 int querySomedayTemperature(char *date, int outlen, CommonValueModel *out);
 //  设置 温度数据
