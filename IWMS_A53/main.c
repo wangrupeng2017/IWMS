@@ -68,15 +68,15 @@ int main (int argc, const char *argv[])
     //  创建读取光照的线程
     ret = pthread_create(&illumination_tid, NULL, gatherIlluminationTask, NULL);
     TRY_PERROR(ret!=0, "创建光照采集线程:", return FuncError);
-    // //  创建控制蜂鸣器的线程
-    // ret = pthread_create(&buzzer_tid, NULL, buzzerControlTask, NULL);
-    // TRY_PERROR(ret!=0, "创建蜂鸣器控制线程:", return FuncError);
-    // //  创建控制照明灯的线程
-    // ret = pthread_create(&light_tid, NULL, lightControlTask, NULL);
-    // TRY_PERROR(ret!=0, "创建照明控制线程:", return FuncError);
-    // //  创建控制风扇的线程
-    // ret = pthread_create(&fan_tid, NULL, fanControlTask, NULL);
-    // TRY_PERROR(ret!=0, "创建风扇控制线程:", return FuncError);
+    //  创建控制蜂鸣器的线程
+    ret = pthread_create(&buzzer_tid, NULL, buzzerControlTask, NULL);
+    TRY_PERROR(ret!=0, "创建蜂鸣器控制线程:", return FuncError);
+    //  创建控制照明灯的线程
+    ret = pthread_create(&light_tid, NULL, lightControlTask, NULL);
+    TRY_PERROR(ret!=0, "创建照明控制线程:", return FuncError);
+    //  创建控制风扇的线程
+    ret = pthread_create(&fan_tid, NULL, fanControlTask, NULL);
+    TRY_PERROR(ret!=0, "创建风扇控制线程:", return FuncError);
     
     //  阻塞等待 温度采集线程 结束
     pthread_join(temperature_tid, NULL);
@@ -87,15 +87,15 @@ int main (int argc, const char *argv[])
     //  阻塞等待 光照采集线程 结束
     pthread_join(illumination_tid, NULL);
     puts("!!! 光照采集线程 结束");
-    // //  阻塞等待 蜂鸣器控制线程 结束
-    // pthread_join(buzzer_tid, NULL);
-    // puts("!!! 蜂鸣器控制线程 结束");
-    // //  阻塞等待 照明控制线程 结束
-    // pthread_join(light_tid, NULL);
-    // puts("!!! 照明控制线程 结束");
-    // //  阻塞等待 风扇控制线程 结束
-    // pthread_join(fan_tid, NULL);
-    // puts("!!! 风扇控制线程 结束");
+    //  阻塞等待 蜂鸣器控制线程 结束
+    pthread_join(buzzer_tid, NULL);
+    puts("!!! 蜂鸣器控制线程 结束");
+    //  阻塞等待 照明控制线程 结束
+    pthread_join(light_tid, NULL);
+    puts("!!! 照明控制线程 结束");
+    //  阻塞等待 风扇控制线程 结束
+    pthread_join(fan_tid, NULL);
+    puts("!!! 风扇控制线程 结束");
 
 
     //  关闭数据库
@@ -160,6 +160,10 @@ void *gatherTemperatureTask(void *arg)
                 }
                 **/
             }
+            //  更新参数表配置状态
+            config.status = temperature.status;
+            ret = modifyParamConfig(&config);
+            if (ret < 0)  { puts("更新温度配置数据出错"); }
         }
         //  添加温度采集数据
         ret = addRealtimeTemperature(&temperature);
@@ -255,6 +259,10 @@ void *gatherHumidityTask(void *arg)
                 }
                 **/
             }
+            //  更新参数表配置状态
+            config.status = humidity.status;
+            ret = modifyParamConfig(&config);
+            if (ret < 0)  { puts("更新湿度配置数据出错"); }
         }
         //  添加湿度采集数据
         ret = addRealtimeHumidity(&humidity);
@@ -330,6 +338,10 @@ void *gatherIlluminationTask(void *arg)
                 illumination.status = (int)(illumination.value - config.max);
                 strcpy(illumination.message, "光照过高");
             }
+            //  更新参数表配置状态
+            config.status = illumination.status;
+            ret = modifyParamConfig(&config);
+            if (ret < 0)  { puts("更新光照配置数据出错"); }
         }
         //  添加光照采集数据
         ret = addRealtimeIllumination(&illumination);
@@ -372,17 +384,122 @@ void *gatherIlluminationTask(void *arg)
 //  蜂鸣器控制任务
 void *buzzerControlTask(void *arg)
 {
+    ParamConfigModel temperature  = {0};
+    ParamConfigModel humidity     = {0};
+    ParamConfigModel illumination = {0};
+    DeviceStatusModel buzzer      = {0};
 
+    while(1)
+    {
+        sleep(GATHER_INTERVAL);
+
+        queryParamConfig(TypeTemperature,  &temperature);
+        queryParamConfig(TypeHumidity,     &humidity);
+        queryParamConfig(TypeIllumination, &illumination);
+        queryDeviceStatus(WAREHOUSE_ID, TypeBuzzer, &buzzer);
+
+        //  判断设备状态是否需要改变, 在需要改变时向M0发送命令 并 更新设备状态
+        int alarm = 0;
+        if (temperature.status  && temperature.alarm)  alarm = 1;
+        if (humidity.status     && humidity.alarm)     alarm = 1;
+        if (illumination.status && illumination.alarm) alarm = 1;
+
+        //  需要报警但蜂鸣器没有打开, 自动打开蜂鸣器
+        if (alarm && (!buzzer.status)) 
+        {
+            buzzer.status = 1;
+            buzzer.mode   = TypeAutomatic;
+        }
+        //  不需要报警但蜂鸣器打开, 并且不是用户主动操作, 关闭蜂鸣器
+        else if (!alarm && buzzer.status && (buzzer.mode==TypeAutomatic))
+            buzzer.status = 0;
+
+        //  更新设备状态
+        modifyDeviceStatus(&buzzer);
+
+        //************************
+        //  根据状态发送命令给M0
+        //************************
+    }
+
+    return NULL;
 }
 //  照明灯控制任务
 void *lightControlTask(void *arg)
 {
+    ParamConfigModel illumination = {0};
+    DeviceStatusModel light      = {0};
 
+    while(1)
+    {
+        sleep(GATHER_INTERVAL);
+
+        queryParamConfig(TypeIllumination, &illumination);
+        queryDeviceStatus(WAREHOUSE_ID, TypeLight, &light);
+
+        //  判断设备状态是否需要改变, 在需要改变时向M0发送命令 并 更新设备状态
+        int automation = 0;
+        if (illumination.status<0 && illumination.automation) automation = 1;
+
+        //  照明太低但照明灯没有打开, 自动打开照明灯
+        if (automation && (!light.status)) 
+        {
+            light.status = 1;
+            light.mode   = TypeAutomatic;
+        }
+        //  不需要照明但照明已打开, 并且不是用户主动操作, 关闭照明灯
+        else if (!automation && light.status && (light.mode==TypeAutomatic))
+            light.status = 0;
+
+        //  更新设备状态
+        modifyDeviceStatus(&light);
+
+        //************************
+        //  根据状态发送命令给M0
+        //************************
+    }
+
+    return NULL;
 }
 //  风扇控制任务
 void *fanControlTask(void *arg)
 {
+    ParamConfigModel temperature  = {0};
+    ParamConfigModel humidity     = {0};
+    DeviceStatusModel fan         = {0};
 
+    while(1)
+    {
+        sleep(GATHER_INTERVAL);
+
+        queryParamConfig(TypeTemperature,  &temperature);
+        queryParamConfig(TypeHumidity,     &humidity);
+        queryDeviceStatus(WAREHOUSE_ID, TypeFan, &fan);
+
+        //  判断设备状态是否需要改变, 在需要改变时向M0发送命令 并 更新设备状态
+        int automation = 0;
+        if (temperature.status>0  && temperature.automation)  automation = 1;
+        if (humidity.status>0     && humidity.automation)     automation = 1;
+
+        //  需要报警但蜂鸣器没有打开, 自动打开蜂鸣器
+        if (automation && (!fan.status)) 
+        {
+            fan.status = 1;
+            fan.mode   = TypeAutomatic;
+        }
+        //  不需要报警但蜂鸣器打开, 并且不是用户主动操作, 关闭蜂鸣器
+        else if (!automation && fan.status && (fan.mode==TypeAutomatic))
+            fan.status = 0;
+
+        //  更新设备状态
+        modifyDeviceStatus(&fan);
+
+        //************************
+        //  根据状态发送命令给M0
+        //************************
+    }
+
+    return NULL;
 }
 
 
