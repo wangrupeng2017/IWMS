@@ -492,7 +492,7 @@ int addDeviceStatus(DeviceStatusModel *model)
 	// 格式化SQL语句
 	char sql[256]  = "";                                                               
     char *sql_format = "INSERT INTO device_status(name, type, warehouse, status, mode) \
-						VALUES('%f', '%d', '%d', '%d', '%d');";                                           
+						VALUES('%s', '%d', '%d', '%d', '%d');";                                           
     sprintf(sql, sql_format, model->name, model->type, model->warehouse, model->status, model->mode);
 
 	// 执行创建SQL
