@@ -264,25 +264,25 @@ const actions = {
   },
   // 请求 历史走势数据
   reqHistoryData(context, date) {
-    // let {state, commit} = context;
-    // let {chooseWarehouse, warehouseList} = state;
-    // let warehouse = warehouseList[chooseWarehouse];
-    // let reqModel = { warehouse_id:warehouse.id, date };
+    let {state, commit} = context;
+    let {chooseWarehouse, warehouseList} = state;
+    let warehouse = warehouseList[chooseWarehouse];
+    let reqModel = { warehouse_id:warehouse.id, date };
     
-    // axios.post('/cgi-bin/history_trend_data.cgi', reqModel).then(function (data) {
-    //   if (data != null) commit('setHistoryData',data);
-    // }).catch(function (error) { console.log(error); });
+    axios.post('/cgi-bin/history_trend_data.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setHistoryData',data);
+    }).catch(function (error) { console.log(error); });
   },
   // 请求 历史统计数据
   reqHistoryStatistics(context, date) {
-    // let {state, commit} = context;
-    // let {chooseWarehouse, warehouseList} = state;
-    // let warehouse = warehouseList[chooseWarehouse];
-    // let reqModel = { warehouse_id:warehouse.id, date };
+    let {state, commit} = context;
+    let {chooseWarehouse, warehouseList} = state;
+    let warehouse = warehouseList[chooseWarehouse];
+    let reqModel = { warehouse_id:warehouse.id, date };
 
-    // axios.post('/cgi-bin/history_statistics_data.cgi', reqModel).then(function (data) {
-    //   if (data != null) commit('setHistoryStatistics',data);
-    // }).catch(function (error) { console.log(error); });
+    axios.post('/cgi-bin/history_statistics_data.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setHistoryStatistics',data);
+    }).catch(function (error) { console.log(error); });
   },
   // 请求 更新设备状态
   reqSetDeviceStatus(context) {

@@ -7,7 +7,8 @@
       <!-- @todo 历史日期的绑定 -->
       <div class="history-date">
         <Date-picker class="date-picker" type="date" placeholder="选择日期"
-                     v-model="historyDate"></Date-picker>
+                     format="yyyy-MM-dd" :value="historyDate" 
+                     @on-change="historyDate=arguments[0]"></Date-picker>
         <i-button class="query-btn" type="warning"
                   @click="showHistoryData">查询历史</i-button>
       </div>
