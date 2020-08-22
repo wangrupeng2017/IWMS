@@ -69,7 +69,7 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 
 	//  查询实时温度数据
 	CommonValueModel *temperature = calloc(sizeof(CommonValueModel), 1);
-	int rows = queryRecentlyHumidity(time(NULL), temperature);
+	int rows = queryRecentlyTemperature(time(NULL), temperature);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL2; }
 	if (rows == 0) { ret=Success;       goto ERROR_LABEL2; }
 

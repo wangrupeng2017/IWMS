@@ -33,6 +33,9 @@ int initSQL(sqlite3 **out)
     TRY_SQLITE_ERROR(ret!=SQLITE_OK, "打开数据库:", db_instance, return -1);
 	puts("打开数据库成功");
 
+	// 开启忙等待 500ms
+	sqlite3_busy_timeout(db_instance, 500*1000);
+
 	*out = db_instance;
 	return 0;
 }
