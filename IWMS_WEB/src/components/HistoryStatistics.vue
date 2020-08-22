@@ -34,6 +34,7 @@
     <div class="data-trend">
       <ve-line class="tendency-chart" height="370px" 
                :settings="chartSettings"
+               :colors="colors"
                :data="trendInfo"></ve-line>
     </div>
 
@@ -98,6 +99,8 @@ export default {
         'illuminance': '照明',
       },
     }
+    //  走势图颜色
+    this.colors = ['#db6623','#5271C2', '#aa9e5c', '#d48265']
     return {
       //  实时监控弹窗状态
       cameraModal: false,
