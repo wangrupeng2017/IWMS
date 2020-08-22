@@ -7,7 +7,6 @@
  * Modification: 2020-08-20
  ************************************************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,20 +16,18 @@
 #include "cJSON.h"
 #include "web_session_struct.h"
 #include "store.h"
+#include "cgi_params.h"
+#include "cgi_response.h"
 
-//  接收参数
-int receiveParameter(void **out, int *outlen);
 //  业务处理
 int businessHandler(void *req, int reqlen, void **out, int *outlen);
-//  响应结果
-int sendResult(void *res, int reslen);
 
 int cgiMain()
 {
 	void *req  = NULL;
 	int reqlen = 0;
-	//  接收参数
-	int ret = receiveParameter(&req, &reqlen);
+	//  接收参数 仓库设备信息
+	int ret = receiveWarehouseDevice(&req, &reqlen);
 	if (ret != Success) goto ErrorLabel1;
 
 	void *res  = NULL;
@@ -40,7 +37,7 @@ int cgiMain()
 	if (ret != Success) goto ErrorLabel2;
 
 	//  响应结果
-	ret = sendResult(res, reslen);
+	ret = sendNULL(res, reslen);
 	if (ret != Success) goto ErrorLabel3;
 
 	free(req);
@@ -50,52 +47,10 @@ ErrorLabel3:
 ErrorLabel2:
 	free(req);
 ErrorLabel1:
-	sendResult(NULL, 0);
+	sendNULL(NULL, 0);
 	return 0;
 }
 
-/***************************************
- * function:    获取请求参数
- * @param [out] out 请求参数
- * @param [out] outlen 参数大小
- * @return      0:接受成功，!0:接受错误
- */
-int receiveParameter(void **out, int *outlen)
-{
-	if (strcmp(cgiRequestMethod, "POST") != 0)
-		return ErrorRequestMethod;
-	
-	int ret = 0;
-	// 取出消息内容字符串
-	char *buff = calloc(cgiContentLength+1, 1);
-	if (fgets(buff, cgiContentLength+1, cgiIn) == NULL)
-	{
-		ret = ErrorReadContent;
-		goto ERROR_LABEL1;
-	}
-
-	// 转换成JSON对象
-	cJSON *json = cJSON_Parse(buff);
-	if (NULL == json)  { ret=ErrorJsonParse; goto ERROR_LABEL1; }
-
-	// 解析JSON赋值给对应结构体
-	WarehouseDevice* req = calloc(sizeof(WarehouseDevice), 1);
-	req->warehouse_id = cJSON_GetObjectItem(json, "warehouse_id")->valueint;
-	req->buzzer       = cJSON_GetObjectItem(json, "buzzer")->valueint;
-	req->light        = cJSON_GetObjectItem(json, "light")->valueint;
-	req->fan          = cJSON_GetObjectItem(json, "fan")->valueint;
-
-	//  传出参数值
-	*out = req;	
-	*outlen = sizeof(WarehouseDevice);
-	ret = Success;
-
-	//  释放过度内存
-	cJSON_Delete(json);
-ERROR_LABEL1:
-	free(buff);
-	return ret;
-}
 /***************************************
  * function:    业务处理方法
  * @param [ in] req 请求参数
@@ -146,7 +101,6 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	ret = modifyDeviceStatus(fan);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL4; }
 
-
 	//  操作成功
 	ret = Success;
 ERROR_LABEL4:
@@ -159,21 +113,3 @@ ERROR_LABEL1:
     closeSQL();
 	return ret;
 }
-/***************************************
- * function:    响应结果
- * @param [ in] res 响应数据
- * @param [ in] reslen 响应数据大小
- * @return      0:响应成功，!0:响应错误
- */
-int sendResult(void *res, int reslen)
-{
-	cJSON *json    = cJSON_CreateNull();
-	char *json_str = cJSON_Print(json);
-
-	cgiHeaderContentType("application/json");
-	fputs(json_str, cgiOut);
-
-	free(json_str);
-	return Success;
-}
-

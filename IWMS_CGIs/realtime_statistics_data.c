@@ -17,20 +17,18 @@
 #include "web_session_struct.h"
 #include "store.h"
 #include "common_time.h"
+#include "cgi_params.h"
+#include "cgi_response.h"
 
-//  接收参数
-int receiveParameter(void **out, int *outlen);
 //  业务处理
 int businessHandler(void *req, int reqlen, void **out, int *outlen);
-//  响应结果
-int sendResult(void *res, int reslen);
 
 int cgiMain()
 {
 	void *req  = NULL;
 	int reqlen = 0;
-	//  接收参数
-	int ret = receiveParameter(&req, &reqlen);
+	//  接收参数 仓库id
+	int ret = receiveWarehouseId(&req, &reqlen);
 	if (ret != Success) goto ErrorLabel1;
 
 	void *res  = NULL;
@@ -40,7 +38,7 @@ int cgiMain()
 	if (ret != Success) goto ErrorLabel2;
 
 	//  响应结果
-	ret = sendResult(res, reslen);
+	ret = sendAbnormalStatistics(res, reslen);
 	if (ret != Success) goto ErrorLabel3;
 
 	free(req);
@@ -50,48 +48,10 @@ ErrorLabel3:
 ErrorLabel2:
 	free(req);
 ErrorLabel1:
-	sendResult(NULL, 0);
+	sendAbnormalStatistics(NULL, 0);
 	return 0;
 }
 
-/***************************************
- * function:    获取请求参数
- * @param [out] out 请求参数
- * @param [out] outlen 参数大小
- * @return      0:接受成功，!0:接受错误
- */
-int receiveParameter(void **out, int *outlen)
-{
-	//  请求方式检查
-	if (strcmp(cgiRequestMethod, "POST") != 0)
-		return ErrorRequestMethod;
-	
-	int ret = 0;
-	//  请求参数读取 (未处理,字符串格式)
-	char *buff = calloc(cgiContentLength+1, 1);
-	if (fgets(buff, cgiContentLength+1, cgiIn) == NULL)
-	{
-		ret = ErrorReadContent;
-		goto ERROR_LABEL1;
-	}
-
-	//  参数解析
-	cJSON *json = cJSON_Parse(buff);
-	if (NULL == json)  { ret=ErrorJsonParse; goto ERROR_LABEL1; }
-	WarehouseId  *req = calloc(sizeof(WarehouseId), 1);
-	req->warehouse_id = cJSON_GetObjectItem(json, "warehouse_id")->valueint;
-
-	//  传出参数值
-	*out = req;	
-	*outlen = sizeof(WarehouseId);
-	ret = Success;
-
-	//  释放过度内存
-	cJSON_Delete(json);
-ERROR_LABEL1:
-	free(buff);
-	return ret;
-}
 /***************************************
  * function:    业务处理方法
  * @param [ in] req 请求参数
@@ -142,40 +102,3 @@ ERROR_LABEL1:
     closeSQL();
 	return ret;
 }
-/***************************************
- * function:    响应结果
- * @param [ in] res 响应数据
- * @param [ in] reslen 响应数据大小
- * @return      0:响应成功，!0:响应错误
- */
-int sendResult(void *res, int reslen)
-{
-	cJSON *json = NULL;
-	if (res == NULL)
-	{
-		json = cJSON_CreateNull();
-	}
-	else
-	{
-		WebAbnormalStatistics *data = res;
-		json = cJSON_CreateObject();
-		cJSON_AddItemToObject(json, "abnormalTemperature", cJSON_CreateNumber(data->abnormalTemperature));
-		cJSON_AddItemToObject(json, "minTemperature",      cJSON_CreateNumber(data->minTemperature));
-		cJSON_AddItemToObject(json, "maxTemperature",      cJSON_CreateNumber(data->maxTemperature));
-		cJSON_AddItemToObject(json, "abnormalHumidity",    cJSON_CreateNumber(data->abnormalHumidity));
-		cJSON_AddItemToObject(json, "minHumidity",         cJSON_CreateNumber(data->minHumidity));
-		cJSON_AddItemToObject(json, "maxHumidity",         cJSON_CreateNumber(data->maxHumidity));
-		cJSON_AddItemToObject(json, "abnormalIlluminance", cJSON_CreateNumber(data->abnormalIlluminance));
-		cJSON_AddItemToObject(json, "minIlluminance",      cJSON_CreateNumber(data->minIlluminance));
-		cJSON_AddItemToObject(json, "maxIlluminance",      cJSON_CreateNumber(data->maxIlluminance));
-	}
-	
-	char *json_str = cJSON_Print(json);
-	cgiHeaderContentType("application/json");
-	fputs(json_str, cgiOut);
-
-	free(json_str);
-	return Success;
-}
-
-

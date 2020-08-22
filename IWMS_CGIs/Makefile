@@ -12,7 +12,7 @@ OBJS  += update_device_config.cgi
 #LIBS=-L ./lib -lsqlite3
 LIBS     := -lsqlite3 -lm
 Includes := -I ../IWMS_SQLs
-Others   := cgic.c cJSON.c ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c
+Others   := cgic.c cJSON.c ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c ./cgi_params.c ./cgi_response.c
 
 all:$(OBJS)
 
