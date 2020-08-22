@@ -1,0 +1,23 @@
+#WarehouseMaintenance {
+  height: 700px;
+  width: 100%;
+
+  .maintenance-title {
+    font-size: 60px;
+    font-weight: 550;
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .maintenance-img-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    width: 100%;
+    .maintenance-img {
+      width: 500px;
+    }
+  }
+
+}

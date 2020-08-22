@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <!-- 仓库列表组件 -->
     <warehouse-list></warehouse-list>
+    <!-- 路由视图组件 -->
     <router-view></router-view>
   </div>
 </template>
@@ -10,31 +12,6 @@ import axios from "axios"
 
 export default {
   name: 'App',
-  methods: {
-    /**
-      onGetClick() {
-        axios.get('/cgi-bin/test.cgi/?ID=12345')
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      onPostClick() {
-        axios.post('/cgi-bin/test.cgi', {
-          firstName: 'Fred',
-          lastName: 'Flintstone'
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
-    */
-  }
 }
 </script>
 

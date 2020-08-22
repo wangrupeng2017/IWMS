@@ -18,56 +18,56 @@ const state = {
   // 仓库列表数据
   warehouseList: [
     {
-      id: 1,
-      name: "仓库1",
+      id    : 1,
+      name  : "仓库1",
       router: "WarehouseNormal",
-      image: "/static/house2.png"
+      image : "/static/house2.png"
     },
     {
-      id: 2,
-      name: "仓库2",
+      id    : 2,
+      name  : "仓库2",
       router: "WarehouseMaintenance",
-      image: "/static/house1.png"
+      image : "/static/house1.png"
     },
     {
-      id: 3,
-      name: "仓库3",
+      id    : 3,
+      name  : "仓库3",
       router: "WarehouseMaintenance",
-      image: "/static/house1.png"
+      image : "/static/house1.png"
     }
   ],
   // 仓库温度数据
   realtimeTemperature: {
-    value:      28.3,  //当前值
-    min:        20,  //最小值
-    max:        30,  //最大值
-    alarm:      0,   //监控报警设置 (0:关闭，1:开启)
+    value     : 0,   //当前值
+    min       : 0,   //最小值
+    max       : 0,   //最大值
+    alarm     : 0,   //监控报警设置 (0:关闭，1:开启)
     automation: 0,   //自动控制设置 (0:关闭，1:开启)
-    status:     0,   //温度状态 (0:正常，1:异常 >0:异常)
+    status    : 0,   //温度状态 (0:正常，1:异常 >0:异常)
   },
   // 仓库湿度数据
   realtimeHumidity: {
-    value:      28.5,  //当前值
-    min:        20,  //最小值
-    max:        30,  //最大值
-    alarm:      0,   //监控报警设置 (0:关闭，1:开启)
+    value     : 0,   //当前值
+    min       : 0,   //最小值
+    max       : 0,   //最大值
+    alarm     : 0,   //监控报警设置 (0:关闭，1:开启)
     automation: 0,   //自动控制设置 (0:关闭，1:开启)
-    status:     0,   //温度状态 (0:正常，<0:异常 >0:异常)
+    status    : 0,   //温度状态 (0:正常，<0:异常 >0:异常)
   },
   // 仓库光照数据
   realtimeIlluminance: {
-    value:      28,  //当前值
-    min:        20,  //最小值
-    max:        30,  //最大值
-    alarm:      0,   //监控报警设置 (0:关闭，1:开启)
+    value     : 0,   //当前值
+    min       : 0,   //最小值
+    max       : 0,   //最大值
+    alarm     : 0,   //监控报警设置 (0:关闭，1:开启)
     automation: 0,   //自动控制设置 (0:关闭，1:开启)
-    status:     0,   //温度状态 (0:正常，1:异常 >0:异常)
+    status    : 0,   //温度状态 (0:正常，1:异常 >0:异常)
   },
   // 器件状态
   deviceStatus: {
     buzzer: 0,   //蜂鸣器状态 (0:关，1:开)
-    light:  0,   //照明灯状态 (0:关，1:开)
-    fan:    0,   //风扇状态   (0:关，1:1档，2:2档，3:3档)
+    light : 0,   //照明灯状态 (0:关，1:开)
+    fan   : 0,   //风扇状态   (0:关，1:1档，2:2档，3:3档)
   },
 
   // 统计信息显示模式
@@ -76,49 +76,31 @@ const state = {
   // 实时异常信息统计
   realtimeStatistics: {
     abnormalTemperature: 0,
-    minTemperature: 0,
-    maxTemperature: 0,
-    abnormalHumidity: 0,
-    minHumidity: 0,
-    maxHumidity: 0,
+    minTemperature     : 0,
+    maxTemperature     : 0,
+    abnormalHumidity   : 0,
+    minHumidity        : 0,
+    maxHumidity        : 0,
     abnormalIlluminance: 0,
-    minIlluminance: 0,
-    maxIlluminance: 0,
+    minIlluminance     : 0,
+    maxIlluminance     : 0,
   },
   // 实时走势信息
-  realtimeTrendData: [
-    { time: "17:33", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:34", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:35", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:36", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:37", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:38", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:39", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:40", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-  ],
+  realtimeTrendData: [],
   // 历史异常信息统计
   historyStatistics: {
     abnormalTemperature: 0,
-    minTemperature: 0,
-    maxTemperature: 0,
-    abnormalHumidity: 0,
-    minHumidity: 0,
-    maxHumidity: 0,
+    minTemperature     : 0,
+    maxTemperature     : 0,
+    abnormalHumidity   : 0,
+    minHumidity        : 0,
+    maxHumidity        : 0,
     abnormalIlluminance: 0,
-    minIlluminance: 0,
-    maxIlluminance: 0,
+    minIlluminance     : 0,
+    maxIlluminance     : 0,
   },
   // 历史走势信息
-  historyTrendData: [
-    { time: "17:33", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:34", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:35", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:36", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:37", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:38", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:39", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-    { time: "17:40", temperature: 26.6, humidity: 20.0, illuminance: 70.5 },
-  ],
+  historyTrendData: [],
 };
 
 const mutations = {

@@ -1,0 +1,105 @@
+/** 文字溢出显示省略号 **/
+@mixin TextOverflowEllipsis {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+// 仓库列表组件
+#Warehouses-List {
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-left: 100px;
+  padding-right: 100px;
+  position: relative;
+  height: 220px;
+  width: 100%;
+
+  // 仓库列表 左/右 箭头
+  .left-arrow, 
+  .right-arrow {
+    align-items: center;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    transition: all 0.3s;
+    height: 120px;
+    width: 60px;  
+    .arrow-icon {
+      font-size: 30px;
+    }
+
+    &:hover {
+      background-color: #fff;
+      box-shadow: 1px 1px 10px 2px #CCC;
+      opacity: .8;
+    }
+  }
+  .left-arrow {
+    left: 20px;
+  }
+  .right-arrow {
+    right: 20px;
+  }
+
+  // 仓库列表
+  .warehouses-list {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+
+  // 仓库项
+  .warehouses-item {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 195px;
+    margin: 5px 10px 0;
+    max-width: 180px;
+    min-width: 180px;
+    padding: 15px 15px 0;
+    position: relative;
+    transition: box-shadow .4s;
+
+    // 仓库项卡片图片
+    .warehouses-img-box {
+      align-items: center;
+      background-color: #f7f7f7;
+      box-sizing: border-box;
+      display: flex;
+      height: 150px;
+      width: 100%;
+      .warehouses-img {
+        width: 100%;
+      }
+    }
+
+    // 仓库项卡片名称
+    .warehouses-name {
+      line-height: 100%;
+      margin-top: 6px;
+      text-align: center;
+      @include TextOverflowEllipsis;
+    }
+
+    // 仓库项卡片阴影
+    &:hover {
+      box-shadow: 1px 1px 10px 2px #CCC;
+    }
+    &.is-checked {
+      box-shadow: 1px 1px 10px 2px #CCC;
+      font-weight: 550;
+    }
+  }
+}

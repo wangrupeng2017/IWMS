@@ -1,0 +1,133 @@
+#History-Statistics {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  height: 400px;
+  padding: 20px 100px;
+  width: 100%;
+
+  // 历史数据选择
+  .history-select {
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 10px 2px #CCC;
+    padding: 20px;
+    height: 350px;
+    width: 400px;
+
+    // 实时数据按钮
+    .realtime-data {
+      font-size: 16px;
+      height: 50px;
+      width: 100%;
+      & {
+        background-color: #db6623;
+        border-color: #db6623;
+      }
+      &:hover {
+        background-color: mix(#fff,#db6623, 10%);
+        border-color: mix(#fff,#db6623, 10%);
+      }
+      &:active {
+        background-color: mix(#000,#db6623, 10%);
+        border-color: mix(#000,#db6623, 10%);
+      }
+    }
+    // 历史日期选择
+    .history-date {
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      height: 40px;
+      width: 100%;
+      .date-picker {
+        flex: 1;
+        margin-right: 10px;
+      }
+      .query-btn {
+        & {
+          background-color: #db6623;
+          border-color: #db6623;
+        }
+        &:hover {
+          background-color: mix(#fff,#db6623, 10%);
+          border-color: mix(#fff,#db6623, 10%);
+        }
+        &:active {
+          background-color: mix(#000,#db6623, 10%);
+          border-color: mix(#000,#db6623, 10%);
+        }
+      }
+    }
+    // 信息统计
+    .info-statistics {
+      display: flex;
+      font-weight: 550;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+  }
+
+  // 数据走势
+  .data-trend {
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 10px 2px #CCC;
+    padding: 20px 20px;
+    height: 350px;
+    width: calc((100% - 1500px) / 3 + 800px);
+  }
+
+  // 设备控制
+  .device-control {
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 10px 2px #CCC;
+    padding: 20px;
+    height: 350px;
+    width: 300px;
+
+    .camera-control {
+      font-size: 16px;
+      height: 50px;
+      width: 100%;
+      & {
+        background-color: #00cc66;
+        border-color: #00cc66;
+      }
+      &:hover {
+        background-color: mix(#fff,#00cc66, 10%);
+        border-color: mix(#fff,#00cc66, 10%);
+      }
+      &:active {
+        background-color: mix(#000,#00cc66, 10%);
+        border-color: mix(#000,#00cc66, 10%);
+      }
+    }
+    .control-item {
+      align-items: center;
+      display: flex;
+      height: 40px;
+      margin-top: 30px;
+      width: 100%;
+      .control-item-icon {
+        font-size: 30px;
+        margin-right: 20px;
+      }
+      &:nth-child(4) .control-item-icon {
+        font-weight: 750;
+      }
+    }
+  }
+}
+
+// 摄像头弹窗
+.camera-modal {
+  .camera-box {
+    height: 500px;
+    width: 100%;
+  }
+  .ivu-modal-footer .ivu-btn-text{
+    display: none;
+  }
+}

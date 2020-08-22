@@ -1,0 +1,171 @@
+// 警报动画
+@keyframes myfirst
+{
+    0%   {color: #fff; }
+    25%  {color: red;  }
+    50%  {color: #fff; }
+    75%  {color: red;  }
+    100% {color: #fff; }
+}
+// 信息卡片颜色
+@mixin CardInfoMixin($themeColor) {
+  background-color: $themeColor;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 10px 2px #CCC;
+  color: #fff;
+  height: 100%;
+  width: 400px;
+  transition: all .1s;
+  // 卡片信息
+  .card-info {
+    height: 200px;
+    position: relative;
+    width: 100%;
+    // 卡片图标
+    .card-icon-box {
+      align-items: center;
+      display: flex;
+      height: 80px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 150px;
+      .card-icon {
+        margin-left: 10px;
+        font-size: 60px;
+      }
+      .card-icon-message {
+        font-size: 40px;
+      }
+    }
+    // 卡片信息
+    .card-data {
+      align-items: flex-end;
+      display: flex;
+      font-weight: 550;
+      font-size: 90px;
+      justify-content: center;
+      height: 95%;
+    }
+    // 报警图标
+    .alarm-icon-box {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 60px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 60px;
+      
+      .alarm-icon {
+        font-size: 30px;
+      }
+      &.is-alarm {
+        animation-name: myfirst;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+  // 卡片设置
+  .card-setting {
+    box-sizing: border-box;
+    padding: 15px 30px;
+    height: 100px;
+    width: 100%;
+    
+    .range-setting {
+      display: flex;
+      justify-content: space-between;
+      .setting-item {
+        align-items: center;
+        display: flex;
+        margin-bottom: 5px;
+        width: 165px;
+        .setting-item-title {
+          font-weight: 550;
+          margin-right: 5px;
+          width: 78px;
+        }
+      }
+    }
+    .control-setting {
+      display: flex;
+      justify-content: space-between;
+      .setting-item {
+        align-items: center;
+        display: flex;
+        height: 30px;
+        margin-bottom: 5px;
+        width: 165px;
+        .setting-item-title {
+          font-weight: 550;
+          margin-right: 5px;
+          width: 78px;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background-color: mix(#fff,$themeColor, 10%);
+  }
+}
+
+#Warehouses-Info {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  height: 300px;
+  margin-top: 15px;
+  padding: 0 100px;
+  width: 100%;
+
+  .temperature-card {
+    @include CardInfoMixin(#db6623);
+  }
+  .humidity-card {
+    @include CardInfoMixin(#5271C2);
+  }
+  .illuminance-card {
+    @include CardInfoMixin(#aa9e5c);
+  }
+  .alarm-card {
+    background-color: #00cc66;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 10px 2px #CCC;
+    color: #fff;
+    height: 100%;
+    padding: 10px 20px;
+    width: 300px;
+    min-width: 300px;
+    transition: all .1s;
+    .alarm-status {
+      align-items: center;
+      display: flex;
+      height: 60px;
+      width: 100%;
+      .status-icon {
+        font-size: 40px;
+      }
+      .status-desc {
+        flex: 1;
+        font-size: 30px;
+        margin-left: 15px;
+      }
+      &:nth-child(1) {
+        margin-bottom: 25px;
+      }
+    }
+    &:hover {
+      background-color: mix(#fff,#00cc66, 10%);
+    }
+    &.is-alarm {
+      background-color: #ff6600;
+    }
+  }
+}
