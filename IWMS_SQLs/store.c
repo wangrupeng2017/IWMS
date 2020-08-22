@@ -458,7 +458,7 @@ int queryDeviceStatus(int warehouse, DeviceType type, DeviceStatusModel *out)
 	// 格式化SQL语句
 	char sql[256]  = "";                                                               
 	char *sql_format = "SELECT id, name, type, warehouse, status, mode \
-						FROM device_status  WHERE twarehouse='%d' AND type='%d' limit 1;";
+						FROM device_status  WHERE warehouse='%d' AND type='%d' limit 1;";
 	sprintf(sql, sql_format, warehouse, type);
 
 	// 执行查询SQL
@@ -474,7 +474,7 @@ int modifyDeviceStatus(DeviceStatusModel *model)
 	char sql[256]  = "";                                                               
     char *sql_format = "UPDATE device_status \
                        SET status='%d', mode='%d' \
-                       WHERE twarehouse='%d' AND type='%d';";
+                       WHERE warehouse='%d' AND type='%d';";
     sprintf(sql, sql_format, model->status, model->mode, model->warehouse, model->type);
 
 	// 执行修改SQL
@@ -509,7 +509,7 @@ int queryStatistics(int warehouse, char *date, StatisticsModel *out)
 						abnormal_temperature, min_temperature, max_temperature, \
 						abnormal_humidity, min_humidity, max_humidity, \
 						abnormal_illuminance, min_illuminance, max_illuminance \
-						FROM statistics  WHERE twarehouse='%d' AND date='%s' limit 1;";
+						FROM statistics  WHERE warehouse='%d' AND date='%s' limit 1;";
 	sprintf(sql, sql_format, warehouse, date);
 
 	// 执行查询SQL

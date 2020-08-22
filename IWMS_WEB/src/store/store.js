@@ -132,14 +132,17 @@ const mutations = {
   },
   // 更新实时温度数据
   setRealtimeTemperature(state, data) {
+    data.value = data.value.toFixed(2);
     state.realtimeTemperature = data;
   },
   // 更新实时湿度数据
   setRealtimeHumidity(state, data) {
+    data.value = data.value.toFixed(2);
     state.realtimeHumidity = data;
   },
   // 更新实时光照数据
   setRealtimeIlluminance(state, data) {
+    data.value = data.value.toFixed(2);
     state.realtimeIlluminance = data;
   },
   // 更新设备状态信息
@@ -173,8 +176,7 @@ const actions = {
     let warehouse = state.warehouseList[state.chooseWarehouse];
     let reqModel = {warehouse_id: warehouse.id};
     axios.post('/cgi-bin/realtime_temperature_param.cgi', reqModel).then(function(data) {
-      console.log(data);
-      commit('setRealtimeTemperature',data);
+      if (data != null) commit('setRealtimeTemperature',data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 实时湿度数据
@@ -182,9 +184,8 @@ const actions = {
     let {commit, state} = context;
     let warehouse = state.warehouseList[state.chooseWarehouse];
     let reqModel = {warehouse_id: warehouse.id};
-    axios.post('/cgi-bin/realtime_humidity_param.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setRealtimeHumidity',response);
+    axios.post('/cgi-bin/realtime_humidity_param.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setRealtimeHumidity',data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 实时照明数据
@@ -192,9 +193,8 @@ const actions = {
     let {commit, state} = context;
     let warehouse = state.warehouseList[state.chooseWarehouse];
     let reqModel = {warehouse_id: warehouse.id};
-    axios.post('/cgi-bin/realtime_illumination_param.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setRealtimeIlluminance',response);
+    axios.post('/cgi-bin/realtime_illumination_param.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setRealtimeIlluminance',data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 设备状态信息
@@ -203,9 +203,8 @@ const actions = {
     let warehouse = state.warehouseList[state.chooseWarehouse];
     let reqModel = {warehouse_id: warehouse.id};
 
-    axios.post('/cgi-bin/realtime_device_status.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setDeviceStatus',response);
+    axios.post('/cgi-bin/realtime_device_status.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setDeviceStatus',data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 更新仓库温度设置
@@ -248,9 +247,8 @@ const actions = {
     let warehouse = warehouseList[chooseWarehouse];
     let reqModel = { warehouse_id:warehouse.id };
 
-    axios.post('/cgi-bin/realtime_trend_data.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setRealtimeTrendData', response);
+    axios.post('/cgi-bin/realtime_trend_data.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setRealtimeTrendData', data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 实时统计信息 
@@ -260,34 +258,31 @@ const actions = {
     let warehouse = warehouseList[chooseWarehouse];
     let reqModel = { warehouse_id:warehouse.id };
 
-    axios.post('/cgi-bin/realtime_statistics_data.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setRealtimeStatistics',response);
+    axios.post('/cgi-bin/realtime_statistics_data.cgi', reqModel).then(function (data) {
+      if (data != null) commit('setRealtimeStatistics',data);
     }).catch(function (error) { console.log(error); });
   },
   // 请求 历史走势数据
   reqHistoryData(context, date) {
-    let {state, commit} = context;
-    let {chooseWarehouse, warehouseList} = state;
-    let warehouse = warehouseList[chooseWarehouse];
-    let reqModel = { warehouse_id:warehouse.id, date };
+    // let {state, commit} = context;
+    // let {chooseWarehouse, warehouseList} = state;
+    // let warehouse = warehouseList[chooseWarehouse];
+    // let reqModel = { warehouse_id:warehouse.id, date };
     
-    axios.post('/cgi-bin/history_trend_data.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setHistoryData',response);
-    }).catch(function (error) { console.log(error); });
+    // axios.post('/cgi-bin/history_trend_data.cgi', reqModel).then(function (data) {
+    //   if (data != null) commit('setHistoryData',data);
+    // }).catch(function (error) { console.log(error); });
   },
   // 请求 历史统计数据
   reqHistoryStatistics(context, date) {
-    let {state, commit} = context;
-    let {chooseWarehouse, warehouseList} = state;
-    let warehouse = warehouseList[chooseWarehouse];
-    let reqModel = { warehouse_id:warehouse.id, date };
+    // let {state, commit} = context;
+    // let {chooseWarehouse, warehouseList} = state;
+    // let warehouse = warehouseList[chooseWarehouse];
+    // let reqModel = { warehouse_id:warehouse.id, date };
 
-    axios.post('/cgi-bin/history_statistics_data.cgi', reqModel).then(function (response) {
-      console.log(response);
-      commit('setHistoryStatistics',response);
-    }).catch(function (error) { console.log(error); });
+    // axios.post('/cgi-bin/history_statistics_data.cgi', reqModel).then(function (data) {
+    //   if (data != null) commit('setHistoryStatistics',data);
+    // }).catch(function (error) { console.log(error); });
   },
   // 请求 更新设备状态
   reqSetDeviceStatus(context) {

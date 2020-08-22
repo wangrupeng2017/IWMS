@@ -251,7 +251,7 @@ export default {
   },
   mounted() {
     // 3秒循环请求
-    let timerLength = 1000 * 10;
+    let timerLength = 1000 * 3;
     // 开启 请求实时温度信息 定时器
     this.temperatureTimer = setInterval(this.reqRealtimeTemperature, timerLength);
     // 开启 请求实时湿度信息 定时器

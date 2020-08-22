@@ -16,7 +16,7 @@
 #include "store_models.h"
 
 
-#define DB_PATH  "./IWMS.db"
+#define DB_PATH  "/mnt/hgfs/ubuntu_share/IWMS/IWMS_SQLs/IWMS.db"
 #define TABLE_PARAM_CONFIG  "CREATE TABLE IF NOT EXISTS param_config (id INTEGER PRIMARY KEY AUTOINCREMENT,  type INT NOT NULL,  min REAL NOT NULL,  max REAL NOT NULL,  alarm INT NOT NULL,  automation INT NOT NULL,  status INT NOT NULL);"
 #define TABLE_TEMPERATURE   "CREATE TABLE IF NOT EXISTS temperature  (id INTEGER PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"
 #define TABLE_HUMIDITY      "CREATE TABLE IF NOT EXISTS humidity     (id INTEGER PRIMARY KEY AUTOINCREMENT,  time TEXT NOT NULL default (datetime('now', 'localtime')),  value REAL NOT NULL,  status INT NOT NULL,  message TEXT NOT NULL);"

@@ -171,7 +171,7 @@ export default {
   },
   mounted() {
     // 3秒循环请求
-    let timerLength = 1000 * 10;
+    let timerLength = 1000 * 3;
     // 开启 请求实时走势信息 定时器
     this.realtimeTrendTimer      = setInterval(this.reqRealtimeTrendData, timerLength);
     // 开启 请求实时异常信息统计 定时器

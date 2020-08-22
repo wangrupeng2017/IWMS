@@ -6,6 +6,8 @@
  * Version: v1.0
  * Modification: 2020-08-20
  ************************************************/
+#ifndef __STORE_MODELS_H__
+#define __STORE_MODELS_H__
 
 // 参数类型枚举
 typedef enum ParamType {
@@ -75,4 +77,4 @@ typedef struct StatisticsModel {
 } StatisticsModel;
 
 
-
+#endif //__STORE_MODELS_H__
