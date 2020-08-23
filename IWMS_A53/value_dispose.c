@@ -48,6 +48,7 @@ int disposeValueStatus(CommonValueModel *model, float min, float max)
  */
 int disposeStatisticsValue(CommonValueModel *model, int *abnormal, float *min, float *max)
 {
+    if ((*min == 0) && (*max == 0))    *min = *max = model->value;
     if (model->value < *min)  *min = model->value;
     if (model->value > *max)  *max = model->value;
     if (model->status != 0)   *abnormal += 1;
