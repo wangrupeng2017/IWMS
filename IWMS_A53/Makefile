@@ -6,7 +6,7 @@ OBJS  := main
 #LIBS=-L ./lib -lsqlite3
 LIBS     := -lsqlite3
 Includes := -I ../IWMS_SQLs
-Others   := ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c
+Others   := ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c ./value_dispose.c
 
 all:$(OBJS)
 
