@@ -1,10 +1,11 @@
 
-CC    := gcc
+#CC    := gcc
+CC    := arm-none-linux-gnueabi-gcc
 FLAGS := -Wall -g
 OBJS  := main
 
-#LIBS=-L ./lib -lsqlite3
-LIBS     := -lsqlite3
+# LIBS     := -lsqlite3 -lpthread
+LIBS     := -L/home/linux/nfs/rootfs/lib -L/home/linux/nfs/rootfs/usr/lib -lsqlite3 -lpthread
 Includes := -I ../IWMS_SQLs
 Others   := ../IWMS_SQLs/store.c ../IWMS_SQLs/common_time.c ./value_dispose.c
 
@@ -13,7 +14,9 @@ all:$(OBJS)
 
 $(OBJS):%:%.c
 	$(CC) $(FLAGS) $< $(Others) -o $@ $(LIBS) $(Includes)
-	cp $@ ~/IWMS/BOA/www/cgi-bin/
+	# cp $@ ~/www/
+	cp $@ ~/nfs/rootfs/www/
+	
 
 clean:
 	rm $(OBJS)
