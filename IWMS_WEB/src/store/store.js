@@ -133,6 +133,7 @@ const mutations = {
   },
   // 更新实时走势数据
   setRealtimeTrendData(state, data) {
+    data.time = data.time.slice(14);
     if (state.realtimeTrendData.length > 60)
       state.realtimeTrendData.shift();
     state.realtimeTrendData.push(data);
@@ -143,6 +144,7 @@ const mutations = {
   },
   // 更新历史走势数据
   setHistoryData(state, data) {
+    data.forEach(item => { item.time = item.time.slice(11); })
     state.historyTrendData = data;
   },
   // 更新历史统计信息

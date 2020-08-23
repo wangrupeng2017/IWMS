@@ -14,19 +14,19 @@
       </div>
       <!-- 统计信息, 温度/湿度/光照 统计数据 -->
       <div class="info-statistics">
-        <div class="abnormal-statistics">温度异常：{{realtimeStatistics.abnormalTemperature}}次</div>
-        <div class="min-statistics">最低：{{realtimeStatistics.minTemperature}}℃</div>
-        <div class="max-statistics">最高：{{realtimeStatistics.maxTemperature}}℃</div>
+        <div class="abnormal-statistics">温度异常：{{statisticInfo.abnormalTemperature}}次</div>
+        <div class="min-statistics">最低：{{statisticInfo.minTemperature}}℃</div>
+        <div class="max-statistics">最高：{{statisticInfo.maxTemperature}}℃</div>
       </div>
       <div class="info-statistics">
-        <div class="abnormal-statistics">湿度异常：{{realtimeStatistics.abnormalHumidity}}次</div>
-        <div class="min-statistics">最低：{{realtimeStatistics.minHumidity}}％</div>
-        <div class="max-statistics">最高：{{realtimeStatistics.maxHumidity}}％</div>
+        <div class="abnormal-statistics">湿度异常：{{statisticInfo.abnormalHumidity}}次</div>
+        <div class="min-statistics">最低：{{statisticInfo.minHumidity}}％</div>
+        <div class="max-statistics">最高：{{statisticInfo.maxHumidity}}％</div>
       </div>
       <div class="info-statistics">
-        <div class="abnormal-statistics">光照异常：{{realtimeStatistics.abnormalIlluminance}}次</div>
-        <div class="min-statistics">最低：{{realtimeStatistics.minIlluminance}}％</div>
-        <div class="max-statistics">最高：{{realtimeStatistics.maxIlluminance}}％</div>
+        <div class="abnormal-statistics">光照异常：{{statisticInfo.abnormalIlluminance}}次</div>
+        <div class="min-statistics">最低：{{statisticInfo.minIlluminance}}％</div>
+        <div class="max-statistics">最高：{{statisticInfo.maxIlluminance}}％</div>
       </div>
     </div>
     
