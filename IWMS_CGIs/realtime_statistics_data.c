@@ -77,7 +77,6 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	StatisticsModel *statistics = calloc(sizeof(StatisticsModel), 1);
 	int rows = queryStatistics(warehouse_id, now_date, statistics);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL2; }
-	if (rows == 0) { ret=Success;       goto ERROR_LABEL2; }
 
 	//  格式化响应数据
 	WebAbnormalStatistics *res = calloc(sizeof(WebAbnormalStatistics), 1);

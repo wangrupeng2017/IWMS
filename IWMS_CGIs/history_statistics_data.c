@@ -68,7 +68,6 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	int ret = initSQL(&db_instance);
 	if (ret != 0)  { ret=ErrorInitSQL;  goto ERROR_LABEL1; }
 
-
 	//  获取仓库号
 	uint warehouse_id  = ((WarehouseHistory*)req)->warehouse_id;
 	char *history_date = ((WarehouseHistory*)req)->date;
@@ -77,7 +76,6 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	StatisticsModel *statistics = calloc(sizeof(StatisticsModel), 1);
 	int rows = queryStatistics(warehouse_id, history_date, statistics);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL2; }
-	if (rows == 0) { ret=Success;       goto ERROR_LABEL2; }
 
 	//  格式化响应数据
 	WebAbnormalStatistics *res = calloc(sizeof(WebAbnormalStatistics), 1);

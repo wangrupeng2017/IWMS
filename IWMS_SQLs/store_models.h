@@ -62,7 +62,6 @@ typedef struct DeviceStatusModel {
 
 // 统计信息表
 typedef struct StatisticsModel {
-    int   id;                     //编号
     int   warehouse;              //仓库号
     char  date[20];               //日期
     int   abnormal_temperature;   //温度异常次数

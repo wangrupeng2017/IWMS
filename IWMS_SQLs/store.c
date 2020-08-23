@@ -508,7 +508,7 @@ int queryStatistics(int warehouse, char *date, StatisticsModel *out)
 {
 	// 格式化SQL语句
 	char sql[512]  = "";                                                               
-	char *sql_format = "SELECT id, warehouse, date, \
+	char *sql_format = "SELECT warehouse, date, \
 						abnormal_temperature, min_temperature, max_temperature, \
 						abnormal_humidity, min_humidity, max_humidity, \
 						abnormal_illuminance, min_illuminance, max_illuminance \
@@ -526,13 +526,13 @@ int modifyStatistics(StatisticsModel *model)
 {
 	// 格式化SQL语句
 	char sql[512]  = "";                                                               
-	char *sql_format = "REPLACE INTO statistics(id, warehouse, date, \
+	char *sql_format = "REPLACE INTO statistics(warehouse, date, \
 						abnormal_temperature, min_temperature, max_temperature, \
 						abnormal_humidity, min_humidity, max_humidity, \
 						abnormal_illuminance, min_illuminance, max_illuminance) \
-						VALUES('%d', '%d', '%s', '%d', '%f', '%f', '%d', '%f', '%f', '%d', '%f', '%f');";
+						VALUES('%d', '%s', '%d', '%f', '%f', '%d', '%f', '%f', '%d', '%f', '%f');";
 
-	sprintf(sql, sql_format, model->id, model->warehouse, model->date, \
+	sprintf(sql, sql_format, model->warehouse, model->date, \
 	                        model->abnormal_temperature, model->min_temperature, model->max_temperature, \
 							model->abnormal_humidity,    model->min_humidity,    model->max_humidity, \
 							model->abnormal_illuminance, model->min_illuminance, model->max_illuminance);
@@ -586,17 +586,16 @@ void formatStatisticsCall(char **row, void *outdata)
 {
     StatisticsModel *info = outdata;
 
-    info->id                   = atoi(row[0]);
-    info->warehouse            = atoi(row[1]);
-    info->abnormal_temperature = atoi(row[3]);
-    info->min_temperature      = atof(row[4]);
-    info->max_temperature      = atof(row[5]);
-    info->abnormal_humidity    = atoi(row[6]);
-    info->min_humidity         = atof(row[7]);
-    info->max_humidity         = atof(row[8]);
-    info->abnormal_illuminance = atoi(row[9]);
-    info->min_illuminance      = atof(row[10]);
-    info->max_illuminance      = atof(row[11]);
-	strcpy(info->date,                row[2]);
+    info->warehouse            = atoi(row[0]);
+    info->abnormal_temperature = atoi(row[2]);
+    info->min_temperature      = atof(row[3]);
+    info->max_temperature      = atof(row[4]);
+    info->abnormal_humidity    = atoi(row[5]);
+    info->min_humidity         = atof(row[6]);
+    info->max_humidity         = atof(row[7]);
+    info->abnormal_illuminance = atoi(row[8]);
+    info->min_illuminance      = atof(row[9]);
+    info->max_illuminance      = atof(row[10]);
+	strcpy(info->date,                row[1]);
 }   
 
