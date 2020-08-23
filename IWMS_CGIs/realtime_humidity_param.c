@@ -86,7 +86,7 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	res->max        = config->max;
 	res->alarm      = config->alarm;
 	res->automation = config->automation;
-	res->status     = config->status;
+	res->status     = value->status;
 
 	//  传出响应数据
 	*out    = res;
