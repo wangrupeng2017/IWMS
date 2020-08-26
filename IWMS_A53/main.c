@@ -97,6 +97,7 @@ int main (int argc, const char *argv[])
     //  zigbee连接成功, 发送应答
     ret = zigbee_ack();
     TRY_ERROR(ret!=0, "zigbee_ack:", return FuncError);
+    puts("zigbee连接成功");
 
     //  循环工作
     while(1)
@@ -104,11 +105,13 @@ int main (int argc, const char *argv[])
         //  接收M0环境信息 (温度/湿度/光照)
         getEnvMsg env;
         ret = zigbee_recv_env(&env);
+        if (ret < 0) puts("接收环境消息出错");
         if (ret == 0)
         {
             float temperature  = env.tem[0] + dota_atof (env.tem[1]);
             float humidity     = env.hum[0] + dota_atof (env.hum[1]);
             float illumination = env.ill;
+            printf("环境信息: temperature:%f, humidity:%f, illumination:%f\n", temperature, humidity, illumination);
             saveTemperature(temperature);
             saveHumidity(humidity);
             saveIllumination(illumination);
@@ -116,11 +119,14 @@ int main (int argc, const char *argv[])
 
         //  设备信息扫描
         //  扫描/控制 蜂鸣器状态
-        scanBuzzerStatus();
+        ret = scanBuzzerStatus();
+        if (ret < 0) puts("扫描/控制 蜂鸣器状态 出错");
         //  扫描/控制 LED灯状态
         scanLightStatus();
+        if (ret < 0) puts("扫描/控制 LED灯状态 出错");
         //  扫描/控制 风扇状态
         scanFanStatus();
+        if (ret < 0) puts("扫描/控制 风扇状态 出错");
 
         //  休眠200ms
         usleep(1000 * 200);
@@ -363,8 +369,8 @@ int scanBuzzerStatus(void)
     if (buzzer.status != lastTimeStatus)
         switch(buzzer.status)
         {
-            case 0: zigbee_send(MSG_M0_BEEP_OFF | (WAREHOUSE_ID<<6)); break;
-            case 1: zigbee_send(MSG_M0_BEEP_ON  | (WAREHOUSE_ID<<6)); break;
+            case 0: zigbee_send(MSG_M0_BEEP_OFF); break;
+            case 1: zigbee_send(MSG_M0_BEEP_ON);  break;
         }
     
     //  记录本次蜂鸣器状态为上次状态
@@ -406,8 +412,8 @@ int scanLightStatus(void)
     if (light.status != lastTimeStatus)
         switch (light.status)
         {
-            case 0: zigbee_send(MSG_M0_LED_OFF | (WAREHOUSE_ID<<6)); break;
-            case 1: zigbee_send(MSG_M0_LED_ON  | (WAREHOUSE_ID<<6)); break;
+            case 0: zigbee_send(MSG_M0_LED_OFF); break;
+            case 1: zigbee_send(MSG_M0_LED_ON);  break;
         }
     
     //  记录本次蜂鸣器状态为上次状态
@@ -452,10 +458,10 @@ int scanFanStatus(void)
     if (fan.status != lastTimeStatus)
         switch(fan.status)
         {
-            case 0: zigbee_send(MSG_M0_FAN_OFF | (WAREHOUSE_ID<<6)); break;
-            case 1: zigbee_send(MSG_M0_FAN_ON1 | (WAREHOUSE_ID<<6)); break;
-            case 2: zigbee_send(MSG_M0_FAN_ON2 | (WAREHOUSE_ID<<6)); break;
-            case 3: zigbee_send(MSG_M0_FAN_ON3 | (WAREHOUSE_ID<<6)); break;
+            case 0: zigbee_send(MSG_M0_FAN_OFF); break;
+            case 1: zigbee_send(MSG_M0_FAN_ON1); break;
+            case 2: zigbee_send(MSG_M0_FAN_ON2); break;
+            case 3: zigbee_send(MSG_M0_FAN_ON3); break;
         }
 
     //  记录本次蜂鸣器状态为上次状态

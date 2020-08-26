@@ -14,6 +14,8 @@
 //  zigbee设备节点路径
 #define DEV_ZIGBEE  "/dev/ttyUSB1"
 
+//  仓库号
+#define STORE_NO 1
 //  消息长度
 #define LEN_ENV 20
 #define LEN_RFID 4 
