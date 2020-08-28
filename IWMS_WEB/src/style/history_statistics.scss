@@ -123,9 +123,18 @@
 
 // 摄像头弹窗
 .camera-modal {
+  .ivu-modal-body {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
   .camera-box {
-    height: 500px;
+    display: flex;
+    justify-content: center;
+    height: 490px;
     width: 100%;
+    .camera-iframe {
+      flex: 1;
+    }
   }
   .ivu-modal-footer .ivu-btn-text{
     display: none;

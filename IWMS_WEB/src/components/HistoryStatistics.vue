@@ -74,12 +74,14 @@
       </div>
     </div>
     <!-- 实时监控弹窗 -->
-    <Modal title="实时监控" width="800px"
+    <Modal title="实时监控" width="700px"
            class="camera-modal"
            v-model="cameraModal"
            :mask-closable="false">
-      <iframe class="camera-box" src="http://www.baidu.com" frameborder="0">
-      </iframe>
+      <div class="camera-box">
+        <iframe class="camera-iframe" :src="cameraPath" frameborder="0">
+        </iframe>
+      </div>
     </Modal>
   </div>
 </template>
@@ -178,6 +180,11 @@ export default {
       };
       chartData.rows = (this.showStatisticsMode==0) ? this.realtimeTrendData : this.historyTrendData;
       return chartData;
+    },
+    //  实时监控网址
+    cameraPath() {
+      let { protocol, hostname } = document.location;
+      return protocol + '//' + hostname + ':8080/?action=stream';
     }
   },
   mounted() {
