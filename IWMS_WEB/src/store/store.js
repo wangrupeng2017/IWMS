@@ -140,6 +140,12 @@ const mutations = {
   },
   // 更新实时统计数据
   setRealtimeStatistics(state, data) {
+    data.minTemperature = data.minTemperature.toFixed(2);
+    data.maxTemperature = data.maxTemperature.toFixed(2);
+    data.minHumidity    = data.minHumidity.toFixed(2);
+    data.minHumidity    = data.minHumidity.toFixed(2);
+    data.minIlluminance = data.minIlluminance.toFixed(2);
+    data.maxIlluminance = data.maxIlluminance.toFixed(2);
     state.realtimeStatistics = data;
   },
   // 更新历史走势数据
@@ -149,6 +155,12 @@ const mutations = {
   },
   // 更新历史统计信息
   setHistoryStatistics(state, data) {
+    data.minTemperature = data.minTemperature.toFixed(2);
+    data.maxTemperature = data.maxTemperature.toFixed(2);
+    data.minHumidity    = data.minHumidity.toFixed(2);
+    data.minHumidity    = data.minHumidity.toFixed(2);
+    data.minIlluminance = data.minIlluminance.toFixed(2);
+    data.maxIlluminance = data.maxIlluminance.toFixed(2);
     state.historyStatistics = data;
   }
 };
