@@ -74,7 +74,7 @@
       </div>
     </div>
     <!-- 实时监控弹窗 -->
-    <Modal title="实时监控" width="700px"
+    <Modal title="实时监控" width="720px"
            class="camera-modal"
            v-model="cameraModal"
            :mask-closable="false">
