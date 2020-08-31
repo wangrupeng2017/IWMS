@@ -110,7 +110,7 @@ int main (int argc, const char *argv[])
         {
             float temperature  = env.tem[0] + dota_atof (env.tem[1]);
             float humidity     = env.hum[0] + dota_atof (env.hum[1]);
-            float illumination = env.ill;
+            float illumination = env.ill / 4.0;
             printf("环境信息: temperature:%f, humidity:%f, illumination:%f\n", temperature, humidity, illumination);
             saveTemperature(temperature);
             saveHumidity(humidity);
