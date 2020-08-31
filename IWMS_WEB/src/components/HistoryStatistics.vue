@@ -78,7 +78,7 @@
            class="camera-modal"
            v-model="cameraModal"
            :mask-closable="false">
-      <div class="camera-box">
+      <div class="camera-box" v-if="cameraModal">
         <iframe class="camera-iframe" :src="cameraPath" frameborder="0">
         </iframe>
       </div>
