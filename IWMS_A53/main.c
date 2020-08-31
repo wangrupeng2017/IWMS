@@ -357,7 +357,7 @@ int scanBuzzerStatus(void)
         buzzer.mode   = TypeAutomatic;
     }
     //  不需要报警但蜂鸣器打开, 并且不是用户主动操作, 关闭蜂鸣器
-    else if (!alarm && buzzer.status && (buzzer.mode==TypeAutomatic))
+    else if ((!alarm) && buzzer.status && (buzzer.mode==TypeAutomatic))
         buzzer.status = 0;
 
     //  更新设备状态
@@ -400,7 +400,7 @@ int scanLightStatus(void)
         light.mode   = TypeAutomatic;
     }
     //  不需要照明但照明已打开, 并且不是用户主动操作, 关闭照明灯
-    else if (!automation && light.status && (light.mode==TypeAutomatic))
+    else if ((!automation) && light.status && (light.mode==TypeAutomatic))
         light.status = 0;
 
     //  更新设备状态
@@ -446,7 +446,7 @@ int scanFanStatus(void)
         fan.mode   = TypeAutomatic;
     }
     //  不需要自动控制但风扇打开, 并且不是用户主动操作, 关闭风扇
-    else if (!automation && fan.status && (fan.mode==TypeAutomatic))
+    else if ((!automation) && fan.status && (fan.mode==TypeAutomatic))
         fan.status = 0;
 
     //  更新设备状态
