@@ -133,20 +133,24 @@ const mutations = {
   },
   // 更新实时走势数据
   setRealtimeTrendData(state, data) {
-    data.time = data.time.slice(14);
+    data.time = data.time.slice(11);
     if (state.realtimeTrendData.length > 60)
       state.realtimeTrendData.shift();
     state.realtimeTrendData.push(data);
   },
   // 更新实时统计数据
   setRealtimeStatistics(state, data) {
-    data.minTemperature = data.minTemperature.toFixed(2);
-    data.maxTemperature = data.maxTemperature.toFixed(2);
-    data.minHumidity    = data.minHumidity.toFixed(2);
-    data.minHumidity    = data.minHumidity.toFixed(2);
-    data.minIlluminance = data.minIlluminance.toFixed(2);
-    data.maxIlluminance = data.maxIlluminance.toFixed(2);
-    state.realtimeStatistics = data;
+    state.realtimeStatistics = {
+      minTemperature: data.minTemperature.toFixed(2),
+      maxTemperature: data.maxTemperature.toFixed(2),
+      minHumidity: data.minHumidity.toFixed(2),
+      maxHumidity: data.maxHumidity.toFixed(2),
+      minIlluminance: data.minIlluminance.toFixed(2),
+      maxIlluminance: data.maxIlluminance.toFixed(2),
+      abnormalTemperature: data.abnormalTemperature,
+      abnormalHumidity: data.abnormalHumidity,
+      abnormalIlluminance: data.abnormalIlluminance,
+    };
   },
   // 更新历史走势数据
   setHistoryData(state, data) {
@@ -155,13 +159,17 @@ const mutations = {
   },
   // 更新历史统计信息
   setHistoryStatistics(state, data) {
-    data.minTemperature = data.minTemperature.toFixed(2);
-    data.maxTemperature = data.maxTemperature.toFixed(2);
-    data.minHumidity    = data.minHumidity.toFixed(2);
-    data.minHumidity    = data.minHumidity.toFixed(2);
-    data.minIlluminance = data.minIlluminance.toFixed(2);
-    data.maxIlluminance = data.maxIlluminance.toFixed(2);
-    state.historyStatistics = data;
+    state.historyStatistics = {
+      minTemperature: data.minTemperature.toFixed(2),
+      maxTemperature: data.maxTemperature.toFixed(2),
+      minHumidity: data.minHumidity.toFixed(2),
+      maxHumidity: data.maxHumidity.toFixed(2),
+      minIlluminance: data.minIlluminance.toFixed(2),
+      maxIlluminance: data.maxIlluminance.toFixed(2),
+      abnormalTemperature: data.abnormalTemperature,
+      abnormalHumidity: data.abnormalHumidity,
+      abnormalIlluminance: data.abnormalIlluminance,
+    };
   }
 };
 
