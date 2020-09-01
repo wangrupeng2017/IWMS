@@ -69,23 +69,23 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 	//  历史日期
 	char *history_date = ((WarehouseHistory*)req)->date;
 
-	//  查询一整天60条温度记录
-	CommonValueModel *temperatures = calloc(sizeof(CommonValueModel), 60);
-	int rows = querySomedayTemperature(history_date, 60, temperatures);
+	//  查询一整天36条温度记录
+	CommonValueModel *temperatures = calloc(sizeof(CommonValueModel), 36);
+	int rows = querySomedayTemperature(history_date, 36, temperatures);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL2; }
-	//  查询一整天60条湿度度记录
-	CommonValueModel *humiditys = calloc(sizeof(CommonValueModel), 60);
-	rows = querySomedayHumidity(history_date, 60, humiditys);
+	//  查询一整天36条湿度度记录
+	CommonValueModel *humiditys = calloc(sizeof(CommonValueModel), 36);
+	rows = querySomedayHumidity(history_date, 36, humiditys);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL3; }
-	//  查询一整天60条光照记录
-	CommonValueModel *illuminations = calloc(sizeof(CommonValueModel), 60);
-	rows = querySomedayIllumination(history_date, 60, illuminations);
+	//  查询一整天36条光照记录
+	CommonValueModel *illuminations = calloc(sizeof(CommonValueModel), 36);
+	rows = querySomedayIllumination(history_date, 36, illuminations);
 	if (rows < 0)  { ret=ErrorQuerySQL; goto ERROR_LABEL4; }
 
 	//  格式化响应数据
-	WebRealtimeTrend *res = calloc(sizeof(WebRealtimeTrend), 60);
+	WebRealtimeTrend *res = calloc(sizeof(WebRealtimeTrend), 36);
 	int i = 0;
-	for (i=0; i<60; i++)
+	for (i=0; i<36; i++)
 	{
 		strcpy(res[i].time, temperatures[i].time);
 		res[i].temperature = temperatures[i].value;
@@ -95,7 +95,7 @@ int businessHandler(void *req, int reqlen, void **out, int *outlen)
 
 	//  传出响应数据
 	*out    = res;
-	*outlen = sizeof(WebRealtimeTrend)*60;
+	*outlen = sizeof(WebRealtimeTrend)*36;
 	ret     = Success;
 
 ERROR_LABEL4:

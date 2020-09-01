@@ -276,7 +276,7 @@ int queryRecentlyTemperature(time_t time, CommonValueModel *out)
 	// 查询给定时间 5分钟内最近一条数据
 	char time1_str[20] = "";
 	char time2_str[20] = "";
-	timestampToTimestr(time-(60*5), time1_str);
+	timestampToTimestr(time-10, time1_str);
 	timestampToTimestr(time,        time2_str);
 
 	// 格式化SQL语句
@@ -337,7 +337,7 @@ int queryRecentlyHumidity(time_t time, CommonValueModel *out)
 	// 查询给定时间 5分钟内最近一条数据
 	char time1_str[20] = "";
 	char time2_str[20] = "";
-	timestampToTimestr(time-(60*5), time1_str);
+	timestampToTimestr(time-10, time1_str);
 	timestampToTimestr(time,        time2_str);
 
 	// 格式化SQL语句
@@ -398,7 +398,7 @@ int queryRecentlyIllumination(time_t time, CommonValueModel *out)
 	// 查询给定时间 5分钟内最近一条数据
 	char time1_str[20] = "";
 	char time2_str[20] = "";
-	timestampToTimestr(time-(60*5), time1_str);
+	timestampToTimestr(time-10, time1_str);
 	timestampToTimestr(time,        time2_str);
 
 	// 格式化SQL语句
